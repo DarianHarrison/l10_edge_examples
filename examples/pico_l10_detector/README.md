@@ -21,14 +21,6 @@ cargo run --release --example pico_blinky
 
 
 
-
-
-
-
-
-
-
-
 ## reference
 
 ![Alt Text](./docs/datasheet.png)
