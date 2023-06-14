@@ -1,27 +1,23 @@
 # l10_edge
 
+## reference
+
+![Alt Text](./docs/datasheet.png)
+
+
 * timers
-* adc
-* usb
 * pwm
+* adc
+* dma
+* usb
+* dma to usb
+* usb to host
+
 
 1. 
 ```bash
 cargo run --release --example adc_usb
 ```
-
-2. 
-```bash
-sudo apt install -y screen
-sudo screen /dev/ttyACM0 115200
-```
-```bash
-CTRL+A 
-k
-y
-```
-
-
 
 ## sources
 
@@ -36,6 +32,18 @@ embedded-hal
 https://crates.io/crates/embedded-hal
 
 
-## reference
+usb host system
 
-![Alt Text](./docs/datasheet.png)
+https://github.com/rust-embedded-community/usbd-serial
+
+https://github.com/a1ien/rusb
+https://github.com/rust-embedded-community/usb-device
+
+
+# https://github.com/rubberduck203/stm32f3-discovery/tags
+# https://github.com/riscv-rust/hifive1/tags
+# https://github.com/rp-rs/rp-hal-boards/tree/main/boards/rp-pico
+# git clone latest discovery board
+# git clone latest pi-pico board
+# git clone latest si-labs board
+# git clone latest stmf32 board
