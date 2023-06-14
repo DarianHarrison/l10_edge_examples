@@ -51,19 +51,24 @@ git push
 git pull
 ```
 
-## 9. Run no_std
+## 9.) Run no_std
 
-1. unplug and plug device back in (while holding boostel)
+1. look at available board examples
+```
+ls examples/pico_l10_detector/examples
+```
+2. unplug and plug device back in (while holding boostel)
 
-2. cd to any example
+3. cd to any example
 ```sh
 cd examples/pico_l10_detector
 ```
-3. compile and flash program automatically
+4. compile and flash program automatically
 ```sh
 cargo run --release --example pico_blinky
+# cargo run --release --example pico_pwm_blink
 ```
 
-## 10. Play the Device
+## 10.) Play the Device
 
 1. unplug and plug device back in
