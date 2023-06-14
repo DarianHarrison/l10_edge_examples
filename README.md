@@ -35,9 +35,13 @@ cargo install probe-run
 ```
 
 ## 3.) l10_edge-devel
+
 ```sh
+cd ~/Desktop
 git clone https://github.com/DarianHarrison/l10_edge
+cd l10_edge
 git checkout devel
+git branch
 ```
 
 try to commit and push
