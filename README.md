@@ -1,22 +1,18 @@
 # l10_edge-devel
 
-- [ ] 1. Prereqs.
-- [ ] 2. Prereqs.
-- [ ] 3. Prereqs.
-- [ ] 4. Prereqs.
-- [ ] 5. Prereqs.
-- [ ] 6. Install Rust no_std
-- [ ] 7. Install Embedded Tools
-- [ ] 8. l10_edge-devel
-- [ ] 9. Run no_std
-- [ ] 10. Play the Device
+- [ ] 0. Prereqs: steps 1-5 of **l10_core-devel**
+- [ ] 1. Install Rust no_std
+- [ ] 2. Install Embedded Tools
+- [ ] 3. l10_edge-devel
+- [ ] 4. Run no_std
+- [ ] 5. Play the Device
 
 
-## 6.) Rust no_std
+## 1.) Rust no_std
 
 update your rust installation and ensure you are on the stable build
 ```sh
-cd ~/Desktop/l10_core
+cd ~/Desktop/l10_edge
 rustup default stable ; rustup update ; rustup self update ; rustup update stable ; rustc --version --verbose
 ```
 
@@ -26,7 +22,7 @@ download the compilation target architectures
 rustup target add thumbv7em-none-eabihf ; rustup target add riscv32imac-unknown-none-elf ; rustup target add thumbv6m-none-eabi ; rustup target add thumbv7em-none-eabihf
 ```
 
-## 7.) Embedded Tools
+## 2.) Embedded Tools
 
 For creating UF2 images for the RP2040 USB Bootloader
 ```sh
@@ -38,10 +34,10 @@ For flashing over the SWD pins using a supported JTAG probe
 cargo install probe-run
 ```
 
-## 8.) l10_edge-devel
+## 3.) l10_edge-devel
 ```sh
-git clone https://github.com/DarianHarrison/l10_edge
-git checkout l10_edge-devel
+git clone 
+git checkout devel
 ```
 
 try to commit and push
@@ -51,7 +47,7 @@ git push
 git pull
 ```
 
-## 9.) Run no_std
+## 4.) Run no_std
 
 1. look at available board examples
 ```
@@ -69,6 +65,6 @@ cargo run --release --example pico_blinky
 # cargo run --release --example pico_pwm_blink
 ```
 
-## 10.) Play the Device
+## 5.) Play the Device
 
 1. unplug and plug device back in
