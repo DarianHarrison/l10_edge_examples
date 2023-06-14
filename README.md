@@ -9,6 +9,34 @@
 * usb to host
 
 
+## OS Tools
+
+### On Ubuntu 22.04.x
+
+```sh
+sudo apt install -y libudev-dev
+sudo apt install -y pkg-config
+```
+
+### On RHEL 9.x
+
+```sh
+sudo dnf install -y libudev-devel
+sudo dnf install -y pkgconf
+```
+
+## Embedded Tools
+
+For creating UF2 images for the RP2040 USB Bootloader
+```sh
+cargo install elf2uf2-rs --locked
+```
+
+For flashing over the SWD pins using a supported JTAG probe
+```sh
+cargo install probe-run
+```
+
 ## To Program the Device
 
 0. unplug and plug device back in (while holding boostel)
@@ -19,7 +47,7 @@ cd examples/pico_l10_detector
 ```
 2. compile and flash program automatically
 ```sh
-cargo run --release --example adc_usb
+cargo run --release --example pico_blinky
 ```
 3. unplug and plug device back in
 
