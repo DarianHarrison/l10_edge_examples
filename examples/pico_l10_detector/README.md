@@ -1,27 +1,25 @@
 # l10-ccd
 
+
+
+## reference
+
+![Alt Text](./docs/datasheet.png)
+
+
 * timers
-* adc
-* usb
 * pwm
+* adc
+* dma
+* usb
+* dma to usb
+* usb to host
+
 
 1. 
 ```bash
 cargo run --release --example adc_usb
 ```
-
-2. 
-```bash
-sudo apt install -y screen
-sudo screen /dev/ttyACM0 115200
-```
-```bash
-CTRL+A 
-k
-y
-```
-
-
 
 ## sources
 
@@ -36,6 +34,9 @@ embedded-hal
 https://crates.io/crates/embedded-hal
 
 
-## reference
+usb host system
 
-![Alt Text](./docs/datasheet.png)
+https://github.com/rust-embedded-community/usbd-serial
+
+https://github.com/a1ien/rusb
+https://github.com/rust-embedded-community/usb-device
