@@ -36,7 +36,7 @@ cargo install probe-run
 
 ## 3.) l10_edge-devel
 ```sh
-git clone 
+git clone https://github.com/DarianHarrison/l10_edge
 git checkout devel
 ```
 
