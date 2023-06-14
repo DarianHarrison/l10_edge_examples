@@ -9,7 +9,7 @@
 * usb to host
 
 
-## OS Tools
+## 1. OS Tools
 
 ### On Ubuntu 22.04.x
 
@@ -25,7 +25,7 @@ sudo dnf install -y libudev-devel
 sudo dnf install -y pkgconf
 ```
 
-## Embedded Tools
+## 2. Embedded Tools
 
 For creating UF2 images for the RP2040 USB Bootloader
 ```sh
@@ -37,7 +37,7 @@ For flashing over the SWD pins using a supported JTAG probe
 cargo install probe-run
 ```
 
-## To Program the Device
+## 3. Dev
 
 0. unplug and plug device back in (while holding boostel)
 
@@ -51,14 +51,10 @@ cargo run --release --example pico_blinky
 ```
 3. unplug and plug device back in
 
-## To Play the Device
+
+## 4. Play the Device
 
 1. unplug and plug device back in
-
-
-
-
-
 
 
 
