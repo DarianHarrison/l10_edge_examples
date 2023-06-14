@@ -1,5 +1,10 @@
 # l10_edge
 
+## reference
+
+![Alt Text](./docs/datasheet.png)
+
+
 * timers
 * pwm
 * adc
@@ -9,34 +14,12 @@
 * usb to host
 
 
-## To Program the Device
-
-0. unplug and plug device back in (while holding boostel)
-
-1. cd to any example
-```sh
-cd examples/pico_l10_detector
-```
-2. compile and flash program automatically
-```sh
+1. 
+```bash
 cargo run --release --example adc_usb
 ```
-3. unplug and plug device back in
 
-## To Play the Device
-
-1. unplug and plug device back in
-
-
-
-
-
-
-
-
-
-
-## additional resources
+## sources
 
 pico board crate
 https://crates.io/crates/rp-pico
@@ -48,8 +31,11 @@ note: this is re-exported by the board crate, so it does not need to be in cargo
 embedded-hal
 https://crates.io/crates/embedded-hal
 
+
 usb host system
+
 https://github.com/rust-embedded-community/usbd-serial
+
 https://github.com/a1ien/rusb
 https://github.com/rust-embedded-community/usb-device
 
