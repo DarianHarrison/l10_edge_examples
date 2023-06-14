@@ -39,17 +39,17 @@ cargo install probe-run
 
 ## 3. Dev
 
-0. unplug and plug device back in (while holding boostel)
+1. unplug and plug device back in (while holding boostel)
 
-1. cd to any example
+2. cd to any example
 ```sh
 cd examples/pico_l10_detector
 ```
-2. compile and flash program automatically
+3. compile and flash program automatically
 ```sh
 cargo run --release --example pico_blinky
 ```
-3. unplug and plug device back in
+4. unplug and plug device back in
 
 
 ## 4. Play the Device
