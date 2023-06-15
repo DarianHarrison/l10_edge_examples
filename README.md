@@ -50,6 +50,27 @@ git push
 git pull
 ```
 
+```sh
+lsusb
+```
+Bus 001 Device 016: ID 16c0:27dd Van Ooijen Technische Informatica CDC-ACM class devices (modems)
+
+
+Set devices without root privilege
+```sh
+sudo sh -c "cat << 'EOF' > /etc/udev/rules.d/70-st-link.rules
+# Pico
+ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27dd", TAG+="uaccess"
+EOF"
+```
+```sh
+sudo udevadm control --reload-rules
+```
+verify
+```
+plug board back out and back in
+```
+
 ## 4.) Run no_std
 
 1. unplug and plug device back in (while holding boostel)
