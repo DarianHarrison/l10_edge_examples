@@ -99,4 +99,4 @@ cargo run --release --example pico_blinky
 
 ## 5.) Play the Device
 
-1. unplug and plug device back in (while holding boostel)
+1. unplug and plug device back in (without holding boostel)
