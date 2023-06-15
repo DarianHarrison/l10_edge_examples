@@ -1,4 +1,16 @@
-# l10_detector
+## l10_detector
+
+
+![Alt Text](./docs/pico-datasheet.png)
+
+Raspberry Pi Pico DataSheet
+https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
+
+
+![Alt Text](./docs/ccd-datasheet.png)
+
+3000-pixel CCD Linear Image Sensor (B/W) - ILX526A Datasheet (PDF) - Sony Corporation
+https://pdf1.alldatasheet.com/datasheet-pdf/view/47503/SONY/ILX526A.html
 
 
 ## reference
@@ -16,18 +28,6 @@ Edge
 #cargo run --release --example usb_in
 ```
 
-![Alt Text](./docs/ccd-datasheet.png)
-
-3000-pixel CCD Linear Image Sensor (B/W) - ILX526A Datasheet (PDF) - Sony Corporation
-https://pdf1.alldatasheet.com/datasheet-pdf/view/47503/SONY/ILX526A.html
-
-
-
-![Alt Text](./docs/pico-datasheet.png)
-
-
-
-
 Core
 - [] 1. poll usb device in pin
 - [] 2. deserialize & print (every 1 second)
@@ -35,9 +35,6 @@ Core
 ```sh
 #cargo run --example usb <vid> <pid>
 ```
-
-
-
 
 compile and flash program automatically
 ```sh
