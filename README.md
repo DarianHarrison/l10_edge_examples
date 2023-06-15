@@ -94,6 +94,7 @@ cd examples/pico_l10_detector
 5. compile and flash program automatically
 ```sh
 cargo run --release --example pico_blinky
+# cargo run --release --example adc_usb
 ```
 
 ## 5.) Play the Device
