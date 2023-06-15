@@ -7,6 +7,7 @@
 cargo run --release --example pico_blinky
 # cargo run --release --example pico_pwm_blink
 # cargo run --release --example adc_usb
+# cargo run --release --example pico_countdown_blinky
 ```
 
 6. TODOS:
@@ -17,8 +18,6 @@ cargo run --release --example pico_blinky
 - [] usb
 - [] dma to usb
 - [] usb to host
-
-
 
 ## sources
 
