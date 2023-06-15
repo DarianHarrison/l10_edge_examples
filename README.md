@@ -70,10 +70,12 @@ verify
 plug board back out and back in
 ```
 
-```
+```sh
 lsusb
 ls -l /dev/bus/usb/001/023
 ```
+crw-rw-r--+ 1 root root 189, 22 Jun 14 22:57 /dev/bus/usb/001/023
+
 
 ## 4.) Run no_std
 
