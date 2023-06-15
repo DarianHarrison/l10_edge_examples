@@ -46,25 +46,23 @@ cargo run --release --example pico_blinky
 
 ## sources
 
+// Edge
 
 boards
-https://github.com/rubberduck203/stm32f3-discovery/tags
-https://github.com/riscv-rust/hifive1/tags
 https://github.com/rp-rs/rp-hal-boards/tree/main/boards/rp-pico
 
 embedded-hal
 https://crates.io/crates/embedded-hal
 
-Raspberry Silicon RP2040 microcontroller
-https://crates.io/crates/rp2040-hal
-note: this is re-exported by the board crate, so it does not need to be in cargo.toml if you implement the board rp-pico board crate 
+
+// Core
 
 usb host system
 https://github.com/rust-embedded-community/usbd-serial
 https://github.com/a1ien/rusb
 https://github.com/rust-embedded-community/usb-device
 
-
+// Todo
 Future:
 - [] dma
 - [] dma to usb
