@@ -2,24 +2,27 @@
 
 # l10_detector
 
-* Each board crate generally configures the pins for you
-
-
-
 
 
 
 ## reference
 
+Edge
+- [] 1. configure different clock frequencies ((5) different frequencies between min and max)
+- [] 2. use pwm to blink a led (many times per second)
+- [] 3. use adc to capture photoresist (every 1 second)
+- [] 4. send photoresist data to usb continous (every 1 second)
+
+
+Core:
+- [] 1. poll usb device in pin
+- [] 2. deserialize & print (every 1 second)
+
 
 TODOS:
-- [] timers
-- [] pwm
-- [] adc
 - [] dma
-- [] usb
 - [] dma to usb
-- [] usb to host
+
 
 TODOS:
 ```sh
