@@ -58,9 +58,8 @@ Bus 001 Device 016: ID 16c0:27dd Van Ooijen Technische Informatica CDC-ACM class
 
 Set devices without root privilege
 ```sh
-sudo sh -c "cat << 'EOF' > /etc/udev/rules.d/70-st-link.rules
-# Pico
-ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27dd", TAG+="uaccess"
+sudo sh -c "cat << 'EOF' >> /etc/udev/rules.d/70-st-link.rules
+ATTRS{idVendor}=="1366", ATTRS{idProduct}=="1051", TAG+="uaccess"
 EOF"
 ```
 ```sh
@@ -69,6 +68,11 @@ sudo udevadm control --reload-rules
 verify
 ```
 plug board back out and back in
+```
+
+```
+lsusb
+ls -l /dev/bus/usb/001/023
 ```
 
 ## 4.) Run no_std
