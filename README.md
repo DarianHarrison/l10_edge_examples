@@ -7,7 +7,6 @@
 - [ ] 4. Run no_std
 - [ ] 5. Play the Device
 
-
 ## 1.) Rust no_std
 
 update your rust installation and ensure you are on the stable build
