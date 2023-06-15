@@ -1,16 +1,18 @@
+
+
+# l10_detector
+
+* Each board crate generally configures the pins for you
+
+
+
+
+
+
 ## reference
 
-![Alt Text](./docs/datasheet.png)
 
-5. compile and flash program automatically
-```sh
-cargo run --release --example pico_blinky
-# cargo run --release --example pico_pwm_blink
-# cargo run --release --example adc_usb
-# cargo run --release --example pico_countdown_blinky
-```
-
-6. TODOS:
+TODOS:
 - [] timers
 - [] pwm
 - [] adc
@@ -18,6 +20,26 @@ cargo run --release --example pico_blinky
 - [] usb
 - [] dma to usb
 - [] usb to host
+
+TODOS:
+```sh
+#cargo run --release --example timers
+```
+
+
+
+
+
+![Alt Text](./docs/datasheet.png)
+
+compile and flash program automatically
+```sh
+cargo run --release --example pico_blinky
+# cargo run --release --example pico_pwm_blink
+# cargo run --release --example adc_usb
+# cargo run --release --example pico_countdown_blinky
+```
+
 
 ## sources
 
