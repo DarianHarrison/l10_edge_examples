@@ -19,7 +19,7 @@ Edge
 - [] 1. configure different clock frequencies ((5) different frequencies between min and max)
 - [x] 2. use pwm to blink a led ( 0% - 100% on/off percentage of duty cycle )
 - [] 3. use adc to capture photoresistor (every 1 second)
-- [] 4. send photoresist data to usb continous (every 1 second)
+- [] 4. send photoresistor data to usb continous (every 1 second)
 
 ```sh
 #cargo run --release --example frequency
