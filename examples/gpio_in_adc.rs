@@ -129,25 +129,17 @@ fn main() -> ! {
         // poll usb every 10 ms
         usb_dev.poll(&mut [&mut serial]);
 
-        // nota: 1_000_000 microsegundos = 1 segundo
-        if counter % 1_000_000 == 0 { // cada segundo
+        let pin_adc_counts: u16 = adc.read(&mut adc_pin_0).unwrap();
 
-            // Read the raw ADC counts from the temperature sensor channel.
-            let temp_sens_adc_counts: u16 = adc.read(&mut temperature_sensor).unwrap();
-            let pin_adc_counts: u16 = adc.read(&mut adc_pin_0).unwrap();
+        // pin_adc_counts.as_bytes()
 
-            // convertir a texto solo para efectos de imprimir a consola (en produccion puedes mandar el puro binario)
-            let mut text: String<32> = String::new();
-            writeln!(&mut text, "\n\rCurrent counter: {}\r\n", pin_adc_counts).unwrap();
-
-            // This only works reliably because the number of bytes written to
-            // the serial port is smaller than the buffers available to the USB
-            // peripheral. In general, the return value should be handled, so that
-            // bytes not transferred yet don't get lost.
-            let _ = serial.write(text.as_bytes());
-
-        }
-        counter = counter + 1
+        match serial.write(&pin_adc_counts) {
+            Ok(count) => {
+                // count bytes were written
+            },
+            Err(UsbError::WouldBlock) => {} // No data could be written (buffers full)
+            Err(err) => {} // An error occurred
+        };
     }
 }
 
