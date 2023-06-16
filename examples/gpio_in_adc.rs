@@ -131,13 +131,15 @@ fn main() -> ! {
 
         // convertir a texto solo para efectos de imprimir a consola (en produccion puedes mandar el puro binario)
         let mut text: String<32> = String::new();
-        writeln!(&mut text, "\n Resistor at: {} % intensity",receive);
+        writeln!(&mut text, "\n Resistor at: {} intensity",receive);
 
         // This only works reliably because the number of bytes written to
         // the serial port is smaller than the buffers available to the USB
         // peripheral. In general, the return value should be handled, so that
         // bytes not transferred yet don't get lost.
         let _ = serial.write(text.as_bytes());
+
+
     }
 }
 
