@@ -46,17 +46,15 @@ cargo run --release --example pico_blinky
 
 ## sources
 
-// Edge
-
-boards
-https://github.com/rp-rs/rp-hal-boards/tree/main/boards/rp-pico
-
-embedded-hal
+// board-crates
 https://crates.io/crates/embedded-hal
+https://crates.io/crates/rp2040-hal
+https://crates.io/crates/rp-pico
 
+// arm-crates
+https://crates.io/crates/cortex-m
 
-// Core
-
+// core
 usb host system
 https://github.com/rust-embedded-community/usbd-serial
 https://github.com/a1ien/rusb
@@ -66,3 +64,6 @@ https://github.com/rust-embedded-community/usb-device
 Future:
 - [] dma
 - [] dma to usb
+
+
+
