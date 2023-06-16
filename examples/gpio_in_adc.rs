@@ -118,25 +118,20 @@ fn main() -> ! {
     // Enable ADC
     let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
 
-    // Enable the temperature sense channel
-    let mut temperature_sensor = adc.enable_temp_sensor();
-
     // Configure GPIO28 as an ADC input
-    let mut adc_pin_0 = pins.gpio28.into_floating_input();
+    let mut adc_pin_0 = pins.gpio26.into_floating_input();
 
     loop {
 
         // poll usb every 10 ms
         usb_dev.poll(&mut [&mut serial]);
 
-
         // Read the raw ADC counts from the temperature sensor channel.
-        let temp_sens_adc_counts: u16 = adc.read(&mut temperature_sensor).unwrap();
-        let pin_adc_counts: u16 = adc.read(&mut adc_pin_0).unwrap();
+        let gpio26_photoresistor_input: u16 = adc.read(&mut adc_pin_0).unwrap();
 
         // convertir a texto solo para efectos de imprimir a consola (en produccion puedes mandar el puro binario)
         let mut text: String<32> = String::new();
-        writeln!(&mut text, "\nTemperature: {} Pin: {}",temp_sens_adc_counts, pin_adc_counts);
+        writeln!(&mut text, "\nReading: {}", gpio26_photoresistor_input);
 
         // This only works reliably because the number of bytes written to
         // the serial port is smaller than the buffers available to the USB
