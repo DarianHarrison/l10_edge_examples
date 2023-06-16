@@ -20,7 +20,7 @@ Edge
 - [X] 2. use pwm to blink a led ( 0% - 100% on/off percentage of duty cycle )
 - [X] 3. use adc to capture photoresistor (every 1 second)
 - [X] 4. send photoresistor data to usb continous (every 1 second)
-
+- [] 5. dma to usb
 ```sh
 #cargo run --release --example frequency
 #cargo run --release --example pwm
@@ -80,7 +80,3 @@ https://github.com/rust-embedded-community/usbd-serial
 https://github.com/a1ien/rusb
 https://github.com/rust-embedded-community/usb-device
 
-// Todo
-Future:
-- [] dma
-- [] dma to usb

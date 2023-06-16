@@ -29,6 +29,10 @@ use rp_pico::hal::{dma::DMAExt, pac};
 
 
 // Some traits we need
+use fugit::RateExtU32;
+
+
+// Some traits we need
 use embedded_hal::adc::OneShot;
 
 
@@ -119,6 +123,14 @@ fn main() -> ! {
 
     // Configure one of the pins as an ADC input
     let mut adc_pin_0 = pins.gpio27.into_floating_input();
+
+
+    // Initialize DMA.
+    let dma = pac.DMA.split(&mut pac.RESETS);
+
+    // And we can DMA from a buffer into the UART
+    let teststring = b"DMA UART write\r\n";
+    let tx_transfer = hal::dma::single_buffer::Config::new(dma.ch0, teststring, serial).start();
 
 
     loop {
