@@ -129,13 +129,14 @@ fn main() -> ! {
         // poll usb every 10 ms
         usb_dev.poll(&mut [&mut serial]);
 
+
         // Read the raw ADC counts from the temperature sensor channel.
         let temp_sens_adc_counts: u16 = adc.read(&mut temperature_sensor).unwrap();
         let pin_adc_counts: u16 = adc.read(&mut adc_pin_0).unwrap();
 
         // convertir a texto solo para efectos de imprimir a consola (en produccion puedes mandar el puro binario)
         let mut text: String<32> = String::new();
-        writeln!(&mut text, "\n\rCurrent counter: {}\r\n", pin_adc_counts).unwrap();
+        writeln!(&mut text, "\nTemperature: {} Pin: {}",temp_sens_adc_counts, pin_adc_counts);
 
         // This only works reliably because the number of bytes written to
         // the serial port is smaller than the buffers available to the USB
