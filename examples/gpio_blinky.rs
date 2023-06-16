@@ -1,9 +1,9 @@
-//! # Pico PWM Blink Example
+//! # Pico Blinky Example
 //!
-//! Fades the LED on a Pico board using the PWM peripheral.
+//! Blinks the LED on a Pico board.
 //!
-//! This will fade in/out the LED attached to GP25, which is the pin the Pico
-//! uses for the on-board LED.
+//! This will blink an LED attached to GP25, which is the pin the Pico uses for
+//! the on-board LED.
 //!
 //! See the `Cargo.toml` file for Copyright and license details.
 
@@ -14,10 +14,7 @@
 use rp_pico::entry;
 
 // GPIO traits
-use embedded_hal::PwmPin;
-
-// GPIO traits
-use embedded_hal::digital::v2::{InputPin, OutputPin};
+use embedded_hal::digital::v2::OutputPin;
 
 // Ensure we halt the program on panic (if we don't mention this crate it won't
 // be linked)
@@ -34,18 +31,12 @@ use rp_pico::hal::pac;
 // higher-level drivers.
 use rp_pico::hal;
 
-// The minimum PWM value (i.e. LED brightness) we want
-const LOW: u16 = 0;
-
-// The maximum PWM value (i.e. LED brightness) we want
-const HIGH: u16 = 25000;
-
 /// Entry point to our bare-metal application.
 ///
 /// The `#[entry]` macro ensures the Cortex-M start-up code calls this function
 /// as soon as all global variables are initialised.
 ///
-/// The function configures the RP2040 peripherals, then fades the LED in an
+/// The function configures the RP2040 peripherals, then blinks the LED in an
 /// infinite loop.
 #[entry]
 fn main() -> ! {
@@ -71,6 +62,10 @@ fn main() -> ! {
     .ok()
     .unwrap();
 
+    // The delay object lets us wait for specified amounts of time (in
+    // milliseconds)
+    let mut delay = cortex_m::delay::Delay::new(core.SYST, clocks.system_clock.freq().to_Hz());
+
     // The single-cycle I/O block controls our GPIO pins
     let sio = hal::Sio::new(pac.SIO);
 
@@ -83,43 +78,14 @@ fn main() -> ! {
     );
 
 
-
-    // The delay object lets us wait for specified amounts of time (in
-    // milliseconds)
-    let mut delay = cortex_m::delay::Delay::new(core.SYST, clocks.system_clock.freq().to_Hz());
-
-    // Init PWMs
-    let mut pwm_slices = hal::pwm::Slices::new(pac.PWM, &mut pac.RESETS);
-
-
     // Our LED output
     let mut led_pin = pins.gpio27.into_push_pull_output();
 
-
-    // Configure PWM5 // see: https://docs.rs/rp2040-hal/0.8.2/rp2040_hal/pwm/enum.Pwm5.html
-    let pwm = &mut pwm_slices.pwm5;
-    pwm.set_ph_correct();
-    pwm.enable();
-
-    // Output channel B on PWM4 to the LED pin 
-    // https://docs.rs/rp2040-hal/0.8.2/rp2040_hal/pwm/enum.Pwm5.html
-    let channel = &mut pwm.channel_b;
-    channel.output_to(led_pin);
-
-    // Infinite loop, fading LED up and down
+    // Blink the LED at 1 Hz
     loop {
-        // Ramp brightness up
-        for i in (LOW..=HIGH).skip(100) {
-            delay.delay_us(8);
-            channel.set_duty(i);
-        }
-
-        // Ramp brightness down
-        for i in (LOW..=HIGH).rev().skip(100) {
-            delay.delay_us(8);
-            channel.set_duty(i);
-        }
-
+        led_pin.set_high().unwrap();
+        delay.delay_ms(500);
+        led_pin.set_low().unwrap();
         delay.delay_ms(500);
     }
 }
