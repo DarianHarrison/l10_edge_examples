@@ -91,30 +91,32 @@ fn main() -> ! {
     // Init PWMs
     let mut pwm_slices = hal::pwm::Slices::new(pac.PWM, &mut pac.RESETS);
 
-    // Configure PWM4
-    let pwm = &mut pwm_slices.pwm4;
+
+    // Our LED output
+    let mut led_pin = pins.gpio27.into_push_pull_output();
+
+
+    // Configure PWM5 // see: https://docs.rs/rp2040-hal/0.8.2/rp2040_hal/pwm/enum.Pwm5.html
+    let pwm = &mut pwm_slices.pwm5;
     pwm.set_ph_correct();
     pwm.enable();
 
-    // Our LED output
-    let mut led_pin = pins.gpio28.into_push_pull_output();
-
-
-    // Output channel B on PWM4 to the LED pin
+    // Output channel B on PWM4 to the LED pin 
+    // https://docs.rs/rp2040-hal/0.8.2/rp2040_hal/pwm/enum.Pwm5.html
     let channel = &mut pwm.channel_b;
-    channel.output_to(pins.led);
+    channel.output_to(led_pin);
 
     // Infinite loop, fading LED up and down
     loop {
         // Ramp brightness up
         for i in (LOW..=HIGH).skip(100) {
-            delay.delay_ms(10);
+            delay.delay_us(8);
             channel.set_duty(i);
         }
 
         // Ramp brightness down
         for i in (LOW..=HIGH).rev().skip(100) {
-            delay.delay_ms(10);
+            delay.delay_us(8);
             channel.set_duty(i);
         }
 
