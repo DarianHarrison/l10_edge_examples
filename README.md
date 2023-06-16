@@ -29,8 +29,8 @@ Edge
 ```
 
 Core
-- [] 1. poll usb device in pin
-- [] 2. deserialize & print (every 1 second)
+- [X] 1. poll usb device in pin
+- [X] 2. deserialize & print (every 1 second)
 
 ```sh
 #cargo run --example usb <vid> <pid>
