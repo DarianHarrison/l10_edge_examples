@@ -17,7 +17,7 @@ https://pdf1.alldatasheet.com/datasheet-pdf/view/47503/SONY/ILX526A.html
 
 Edge
 - [] 1. configure different clock frequencies ((5) different frequencies between min and max)
-- [] 2. use pwm to blink a led (many times per second)
+- [x] 2. use pwm to blink a led ( 0% - 100% on/off percentage of duty cycle )
 - [] 3. use adc to capture photoresistor (every 1 second)
 - [] 4. send photoresist data to usb continous (every 1 second)
 
