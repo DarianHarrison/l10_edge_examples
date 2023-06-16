@@ -129,7 +129,7 @@ fn main() -> ! {
         // poll usb every 10 ms
         usb_dev.poll(&mut [&mut serial]);
 
-        let pin_adc_counts: u8 = adc.read(&mut adc_pin_0).unwrap();
+        let pin_adc_counts: u16 = adc.read(&mut adc_pin_0).unwrap();
 
         // pin_adc_counts.as_bytes()
 
