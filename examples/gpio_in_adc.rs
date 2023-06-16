@@ -117,8 +117,8 @@ fn main() -> ! {
     // Enable ADC
     let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
 
-    // Configure GPIO26 as an ADC input
-    let mut adc_pin_0 = hal::adc::AdcPin::new(pins.gpio26);
+    // Configure one of the pins as an ADC input
+    let mut adc_pin_0 = pins.gpio26.into_floating_input();
 
     loop {
 
