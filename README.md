@@ -49,7 +49,7 @@ cargo run --release --example pico_blinky
 
 1.) Wires
 
-![Alt Text](./docs/ccd-datasheet.png)
+![Alt Text](./docs/photoresistor.png)
 
 
 2.) Edge
