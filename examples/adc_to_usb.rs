@@ -120,8 +120,6 @@ fn main() -> ! {
     // Configure GPIO26 as an ADC input
     let mut adc_pin_0 = hal::adc::AdcPin::new(pins.gpio26);
 
-
-
     loop {
 
         if !usb_dev.poll(&mut [&mut serial]) {

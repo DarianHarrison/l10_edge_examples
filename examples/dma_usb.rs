@@ -107,6 +107,10 @@ fn main() -> ! {
     // Set up the USB Communications Class Device driver
     let mut serial = SerialPort::new(&usb_bus);
 
+    // Enable ADC
+    let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
+
+
     // Create a USB device with a fake VID and PID
     let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
         .manufacturer("Fake company")
@@ -118,8 +122,6 @@ fn main() -> ! {
     let timer = hal::Timer::new(pac.TIMER, &mut pac.RESETS);
     let mut counter: u32 = 0;
 
-    // Enable ADC
-    let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
 
     // Configure one of the pins as an ADC input
     let mut adc_pin_0 = pins.gpio27.into_floating_input();
