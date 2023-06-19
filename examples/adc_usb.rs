@@ -111,10 +111,6 @@ fn main() -> ! {
         .device_class(2) // from: https://www.usb.org/defined-class-codes
         .build();
 
-    let timer = hal::Timer::new(pac.TIMER, &mut pac.RESETS);
-    let mut counter: u32 = 0;
-
-
     // Enable ADC
     let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
 
