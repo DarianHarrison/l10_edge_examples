@@ -116,12 +116,6 @@ fn main() -> ! {
     // Configure one of the pins as an ADC input
     let mut adc_pin_0 = pins.gpio27.into_floating_input();
 
-    // Enable the temperature sense channel
-    let mut temperature_sensor = adc.take_temp_sensor().unwrap();
-
-    // Configure GPIO26 as an ADC input
-    let mut adc_pin_0 = hal::adc::AdcPin::new(pins.gpio28);
-
     loop {
 
         // poll usb every 10 ms unless speed is configured

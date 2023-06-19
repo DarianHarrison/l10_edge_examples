@@ -117,9 +117,6 @@ fn main() -> ! {
     // Enable the temperature sense channel
     let mut temperature_sensor = adc.take_temp_sensor().unwrap();
 
-    // Configure GPIO26 as an ADC input
-    let mut adc_pin_0 = hal::adc::AdcPin::new(pins.gpio28);
-
     loop {
 
         // poll usb every 10 ms unless speed is configured
@@ -128,7 +125,7 @@ fn main() -> ! {
         }
 
         // Read the raw ADC counts from the gpio sensor channel.
-        match adc.read(&mut adc_pin_0).unwrap() {
+        match adc.read(&mut temperature_sensor).unwrap() {
             Ok(analog_value) => {
                 // This only works reliably because the number of bytes written to
                 // the serial port is smaller than the buffers available to the USB
@@ -136,8 +133,14 @@ fn main() -> ! {
                 // bytes not transferred yet don't get lost.
                 serial.write(analog_value);
             },
-            Err(UsbError::WouldBlock) => // No data received
-            Err(err) => // An error occurred        
+            Ok(0) => { /*Do nothing*/ }
+            Err(_e) => { /*Do nothing*/ }
+            // On error, just drop unwritten data.
+            // One possible error is Err(WouldBlock), meaning the USB write buffer is full.
+            //Err(_) => break,
+            //Err(UsbError::WouldBlock) => // No data received
+            //Err(err) => // An error occurred        
         }        
     }
 }
+
