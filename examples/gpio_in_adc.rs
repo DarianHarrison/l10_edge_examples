@@ -54,15 +54,16 @@ use heapless::String;
 /// received over USB Serial.
 #[entry]
 fn main() -> ! {
+    
     // Grab our singleton objects
     let mut pac = pac::Peripherals::take().unwrap();
     let core = pac::CorePeripherals::take().unwrap();
 
+    // The watchdog is a countdown timer that can restart parts of the chip if it reaches zero.
     // Set up the watchdog driver - needed by the clock setup code
     let mut watchdog = hal::Watchdog::new(pac.WATCHDOG);
 
     // Configure the clocks
-    //
     // The default is to generate a 125 MHz system clock
     let clocks = hal::clocks::init_clocks_and_plls(
         rp_pico::XOSC_CRYSTAL_FREQ,
@@ -76,14 +77,10 @@ fn main() -> ! {
     .ok()
     .unwrap();
 
-    // The delay object lets us wait for specified amounts of time (in
-    // milliseconds)
-    let mut delay = cortex_m::delay::Delay::new(core.SYST, clocks.system_clock.freq().to_Hz());
-
     // The single-cycle I/O block controls our GPIO 
     let sio = hal::Sio::new(pac.SIO);
 
-    // Set the pins up according to their function on this particular board
+    // Connect PIns to Bus on this board
     let pins = rp_pico::Pins::new(
         pac.IO_BANK0,
         pac.PADS_BANK0,
@@ -126,7 +123,7 @@ fn main() -> ! {
         // poll usb every 10 ms
         usb_dev.poll(&mut [&mut serial]);
 
-        // Read the raw ADC counts from the temperature sensor channel.
+        // Read the raw ADC counts from the 
         let receive: u16 = adc.read(&mut adc_pin_0).unwrap();
 
         // convertir a texto solo para efectos de imprimir a consola (en produccion puedes mandar el puro binario)

@@ -1,10 +1,23 @@
 ## l10_detector
 
+NOTE: LIKELY TO PACE A MICROCONTROLER WITH EXTERNAL CLOCK, MAY need to use **DREQ**
+
 
 ![Alt Text](./docs/pico-datasheet.png)
 
 Raspberry Pi Pico DataSheet
 https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
+
+
+Pico Board Dadasheet
+```
+https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
+```
+
+RP2040 microcntroller Dadasheet
+```
+https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf
+```
 
 
 ![Alt Text](./docs/ccd-datasheet.png)
