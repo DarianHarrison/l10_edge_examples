@@ -1,5 +1,7 @@
 ## l10_detector
 
+3
+
 NOTE: LIKELY TO PACE A MICROCONTROLER WITH EXTERNAL CLOCK, MAY need to use **DREQ**
 
 
