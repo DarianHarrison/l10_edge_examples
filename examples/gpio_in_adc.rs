@@ -111,6 +111,10 @@ fn main() -> ! {
         .device_class(2) // from: https://www.usb.org/defined-class-codes
         .build();
 
+
+
+
+
     // Enable ADC
     let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
 
@@ -118,10 +122,16 @@ fn main() -> ! {
     let mut adc_pin_0 = pins.gpio27.into_floating_input();
 
 
+
+
     loop {
 
-        // poll usb every 10 ms
-        usb_dev.poll(&mut [&mut serial]);
+        let mut buf = [0u8; 64];
+
+        // check for new data
+        if !usb_dev.poll(&mut [&mut serial]) {
+            continue;
+        }
 
         // Read the raw ADC counts from the temperature sensor channel.
         let receive: u16 = adc.read(&mut adc_pin_0).unwrap();
@@ -139,5 +149,25 @@ fn main() -> ! {
 
     }
 }
+
+
+
+
+
+    match serial.read(&mut buf[..]) {
+        Ok(count) => {
+            // count bytes were read to &buf[..count]
+        },
+        Err(UsbError::WouldBlock) => // No data received
+        Err(err) => // An error occurred
+    };
+
+    match serial.write(&[0x3a, 0x29]) {
+        Ok(count) => {
+            // count bytes were written
+        },
+        Err(UsbError::WouldBlock) => // No data could be written (buffers full)
+        Err(err) => // An error occurred
+    };
 
 // End of file
