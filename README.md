@@ -1,6 +1,12 @@
 ## l10_detector
 
+// TODO: verify how to configure pio (programmable input output)
+// TODO: also need to learn how to set up an external pwm
+
 3
+12:00 -
+
+
 
 NOTE: LIKELY TO PACE A MICROCONTROLER WITH EXTERNAL CLOCK, MAY need to use **DREQ**
 

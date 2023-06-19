@@ -79,6 +79,7 @@ fn main() -> ! {
     // The single-cycle I/O block controls our GPIO 
     let sio = hal::Sio::new(pac.SIO);
 
+
     // Connect PIns to Bus on this board
     let pins = rp_pico::Pins::new(
         pac.IO_BANK0,
@@ -113,9 +114,6 @@ fn main() -> ! {
     // Enable ADC
     let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
 
-    // Configure one of the pins as an ADC input
-    let mut adc_pin_0 = pins.gpio27.into_floating_input();
-
     // Enable the temperature sense channel
     let mut temperature_sensor = adc.take_temp_sensor().unwrap();
 
@@ -130,54 +128,16 @@ fn main() -> ! {
         }
 
         // Read the raw ADC counts from the gpio sensor channel.
-        adc.read(&mut adc_pin_0).unwrap();
-
-        // put anlaog_value int 
-        let mut text: String<32> = String::new();
-        writeln!(&mut text, "\n\rCurrent counter: {}\r\n", analog_value).unwrap();
-        writeln!(&mut text, "\n Resistor at: {} intensity",receive)
-        
-        // This only works reliably because the number of bytes written to
-        // the serial port is smaller than the buffers available to the USB
-        // peripheral. In general, the return value should be handled, so that
-        // bytes not transferred yet don't get lost.
-        serial.write(text.as_bytes());
-
+        match adc.read(&mut adc_pin_0).unwrap() {
+            Ok(analog_value) => {
+                // This only works reliably because the number of bytes written to
+                // the serial port is smaller than the buffers available to the USB
+                // peripheral. In general, the return value should be handled, so that
+                // bytes not transferred yet don't get lost.
+                serial.write(analog_value);
+            },
+            Err(UsbError::WouldBlock) => // No data received
+            Err(err) => // An error occurred        
+        }        
     }
 }
-
-/*
-
-let mut serial = SerialPort::new(&usb_bus);
-
-let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
-    .product("Serial port")
-    .device_class(USB_CLASS_CDC)
-    .build();
-
-loop {
-    if !usb_dev.poll(&mut [&mut serial]) {
-        continue;
-    }
-
-    // Read the raw ADC counts from the gpio sensor channel.
-    let analog_value = adc.read(&mut adc_pin_0).unwrap();
-
-    match serial.read(&mut buf[..]) {
-        Ok(count) => {
-            // count bytes were read to &buf[..count]
-        },
-        Err(UsbError::WouldBlock) => // No data received
-        Err(err) => // An error occurred
-    };
-
-    match serial.write(&[0x3a, 0x29]) {
-        Ok(count) => {
-            // count bytes were written
-        },
-        Err(UsbError::WouldBlock) => // No data could be written (buffers full)
-        Err(err) => // An error occurred
-    };
-}
-
-*/
