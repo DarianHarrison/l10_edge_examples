@@ -79,7 +79,6 @@ fn main() -> ! {
     // The single-cycle I/O block controls our GPIO 
     let sio = hal::Sio::new(pac.SIO);
 
-
     // Connect PIns to Bus on this board
     let pins = rp_pico::Pins::new(
         pac.IO_BANK0,
@@ -87,6 +86,10 @@ fn main() -> ! {
         sio.gpio_bank0,
         &mut pac.RESETS,
     );
+
+
+
+    // USB
 
     // Set up the USB driver
     let usb_bus = UsbBusAllocator::new(hal::usb::UsbBus::new(
@@ -108,44 +111,52 @@ fn main() -> ! {
         .device_class(2) // from: https://www.usb.org/defined-class-codes
         .build();
 
-    let timer = hal::Timer::new(pac.TIMER, &mut pac.RESETS);
-    let mut counter: u32 = 0;
+
+    // ADC
 
     // Enable ADC
     let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
 
     // Enable the temperature sense channel
-    let mut temperature_sensor = adc.enable_temp_sensor();
+    let mut temperature_sensor = adc.take_temp_sensor().unwrap();
 
     // Configure GPIO26 as an ADC input
     let mut adc_pin_0 = pins.gpio26.into_floating_input();
 
 
 
+
+    // TIMER
+
+    let timer = hal::Timer::new(pac.TIMER, &mut pac.RESETS);
+    let time = timer.get_counter().ticks();
+
     loop {
+        
+        // time ticks
+        let time = timer.get_counter().ticks();
+
+        // temperature sensor
+        // Read the raw ADC counts from the temperature sensor channel.
+        let temp_sens_adc_counts: u16 = adc.read(&mut temperature_sensor).unwrap();
+        let pin_adc_counts: u16 = adc.read(&mut adc_pin_0).unwrap();
+
+        // 32 byte buffer add string with sensor readings
+        let mut string_buffer: String<32> = String::new();
+
+        writeln!(&mut string_buffer, "ADC readings: CDC: {time:02} Temperature: {temp_sens_adc_counts:02} Pin: {pin_adc_counts:02}").unwrap();
 
         // poll usb every 10 ms unless speed is configured
         if !usb_dev.poll(&mut [&mut serial]) {
+            
             continue;
-        }
 
-        // Read the raw ADC counts from the gpio sensor channel.
-        match adc.read(&mut adc_pin_0).unwrap() {
-            Ok(analog_value) => {
-                // This only works reliably because the number of bytes written to
-                // the serial port is smaller than the buffers available to the USB
-                // peripheral. In general, the return value should be handled, so that
-                // bytes not transferred yet don't get lost.
-                serial.write(analog_value);
-            },
-            Ok(0) => { /*Do nothing*/ }
-            Err(_e) => { /*Do nothing*/ }
-            // On error, just drop unwritten data.
-            // One possible error is Err(WouldBlock), meaning the USB write buffer is full.
-            //Err(_) => break,
-            //Err(UsbError::WouldBlock) => // No data received
-            //Err(err) => // An error occurred        
-        }        
+            // This only works reliably because the number of bytes written to
+            // the serial port is smaller than the buffers available to the USB
+            // peripheral. In general, the return value should be handled, so that
+            // bytes not transferred yet don't get lost.
+            serial.write(string_buffer.as_bytes());
+
+        }      
     }
 }
-

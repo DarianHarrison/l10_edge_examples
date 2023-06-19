@@ -128,8 +128,7 @@ fn main() -> ! {
 
         // put anlaog_value int 
         let mut text: String<32> = String::new();
-        writeln!(&mut text, "\n\rCurrent counter: {}\r\n", analog_value).unwrap();
-        writeln!(&mut text, "\n Resistor at: {} intensity",receive)
+        writeln!(&mut text, "\ncurrent Photoresistance:{}", analog_value).unwrap();
         
         // This only works reliably because the number of bytes written to
         // the serial port is smaller than the buffers available to the USB
