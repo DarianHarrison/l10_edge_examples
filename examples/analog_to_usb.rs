@@ -147,16 +147,15 @@ fn main() -> ! {
         writeln!(&mut string_buffer, "ADC readings: CDC: {time:02} Temperature: {temp_sens_adc_counts:02} Pin: {pin_adc_counts:02}").unwrap();
 
         // poll usb every 10 ms unless speed is configured
-        if !usb_dev.poll(&mut [&mut serial]) {
-            
+        if !usb_dev.poll(&mut [&mut serial]) {            
             continue;
+        }
 
-            // This only works reliably because the number of bytes written to
-            // the serial port is smaller than the buffers available to the USB
-            // peripheral. In general, the return value should be handled, so that
-            // bytes not transferred yet don't get lost.
-            serial.write(string_buffer.as_bytes());
+        // This only works reliably because the number of bytes written to
+        // the serial port is smaller than the buffers available to the USB
+        // peripheral. In general, the return value should be handled, so that
+        // bytes not transferred yet don't get lost.
+        serial.write(string_buffer.as_bytes());
 
-        }      
     }
 }
