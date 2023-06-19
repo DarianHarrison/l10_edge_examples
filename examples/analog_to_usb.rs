@@ -138,7 +138,7 @@ fn main() -> ! {
         // 32 byte buffer add string with sensor readings
         let mut string_buffer: String<32> = String::new();
 
-        writeln!(&mut string_buffer, "ADC readings: CDC: {time:02} Temperature: {temp_sens_adc_counts:02}").unwrap();
+        writeln!(&mut string_buffer, "ADC readings: CDC: {time} Temperature: {temp_sens_adc_counts}").unwrap();
 
         // poll usb every 10 ms unless speed is configured
         if !usb_dev.poll(&mut [&mut serial]) {            

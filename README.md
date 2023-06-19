@@ -3,7 +3,7 @@
 // TODO: verify how to configure pio (programmable input output)
 // TODO: also need to learn how to set up an external pwm
 
-5:15
+6:15
 
 
 
