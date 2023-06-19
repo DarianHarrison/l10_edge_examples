@@ -130,7 +130,7 @@ fn main() -> ! {
         }
 
         // Read the raw ADC counts from the gpio sensor channel.
-        match adc.read(&mut temperature_sensor).unwrap() {
+        match adc.read(&mut adc_pin_0).unwrap() {
             Ok(analog_value) => {
                 // This only works reliably because the number of bytes written to
                 // the serial port is smaller than the buffers available to the USB
