@@ -111,13 +111,8 @@ fn main() -> ! {
         .device_class(2) // from: https://www.usb.org/defined-class-codes
         .build();
 
-    let timer = hal::Timer::new(pac.TIMER, &mut pac.RESETS);
-
     // Enable ADC
     let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
-
-    // Enable the temperature sense channel
-    let mut temperature_sensor = adc.enable_temp_sensor();
 
     // Configure GPIO28 as an ADC input
     let mut adc_pin_0 = pins.gpio28.into_floating_input();
@@ -127,13 +122,12 @@ fn main() -> ! {
         // poll usb every 10 ms
         usb_dev.poll(&mut [&mut serial]);
 
-        // Read the raw ADC counts from the temperature sensor channel.
-        let temp_sens_adc_counts: u16 = adc.read(&mut temperature_sensor).unwrap();
-        let pin_adc_counts: u16 = adc.read(&mut adc_pin_0).unwrap();
+        // Read the raw ADC counts from the gpio sensor channel.
+        let analog_valu = adc.read(&mut adc_pin_0).unwrap();
 
         // convertir a texto solo para efectos de imprimir a consola (en produccion puedes mandar el puro binario)
         let mut text: String<32> = String::new();
-        writeln!(&mut text, "\n\rCurrent counter: {}\r\n", pin_adc_counts).unwrap();
+        writeln!(&mut text, "\n\rCurrent counter: {}\r\n", analog_value).unwrap();
 
         // This only works reliably because the number of bytes written to
         // the serial port is smaller than the buffers available to the USB

@@ -27,7 +27,6 @@ use rp_pico::hal::pac;
 // higher-level drivers.
 use rp_pico::hal;
 
-
 // Some traits we need
 use embedded_hal::adc::OneShot;
 
@@ -54,7 +53,7 @@ use heapless::String;
 /// received over USB Serial.
 #[entry]
 fn main() -> ! {
-    
+
     // Grab our singleton objects
     let mut pac = pac::Peripherals::take().unwrap();
     let core = pac::CorePeripherals::take().unwrap();
@@ -117,27 +116,32 @@ fn main() -> ! {
     // Configure one of the pins as an ADC input
     let mut adc_pin_0 = pins.gpio27.into_floating_input();
 
+    // Enable the temperature sense channel
+    let mut temperature_sensor = adc.take_temp_sensor().unwrap();
+
+    // Configure GPIO26 as an ADC input
+    let mut adc_pin_0 = hal::adc::AdcPin::new(pins.gpio28);
 
     loop {
 
-        // poll usb every 10 ms
-        usb_dev.poll(&mut [&mut serial]);
+        // poll usb every 10 ms unless speed is configured
+        if !usb_dev.poll(&mut [&mut serial]) {
+            continue;
+        }
 
-        // Read the raw ADC counts from the 
-        let receive: u16 = adc.read(&mut adc_pin_0).unwrap();
+        // Read the raw ADC counts from the gpio sensor channel.
+        let analog_value: u16 = adc.read(&mut adc_pin_0).unwrap();
 
-        // convertir a texto solo para efectos de imprimir a consola (en produccion puedes mandar el puro binario)
+        // put anlaog_value int 
         let mut text: String<32> = String::new();
-        writeln!(&mut text, "\n Resistor at: {} intensity",receive);
-
+        writeln!(&mut text, "\n\rCurrent counter: {}\r\n", analog_value).unwrap();
+        writeln!(&mut text, "\n Resistor at: {} intensity",receive)
+        
         // This only works reliably because the number of bytes written to
         // the serial port is smaller than the buffers available to the USB
         // peripheral. In general, the return value should be handled, so that
         // bytes not transferred yet don't get lost.
-        let _ = serial.write(text.as_bytes());
-
+        serial.write(text.as_bytes());
 
     }
 }
-
-// End of file
