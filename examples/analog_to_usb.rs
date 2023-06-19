@@ -115,7 +115,12 @@ fn main() -> ! {
     let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
 
     // Enable the temperature sense channel
-    let mut temperature_sensor = adc.take_temp_sensor().unwrap();
+    let mut temperature_sensor = adc.enable_temp_sensor();
+
+    // Configure GPIO26 as an ADC input
+    let mut adc_pin_0 = pins.gpio26.into_floating_input();
+
+
 
     loop {
 
