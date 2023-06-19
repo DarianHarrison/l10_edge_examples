@@ -118,12 +118,7 @@ fn main() -> ! {
     let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
 
     // Enable the temperature sense channel
-    let mut temperature_sensor = adc.take_temp_sensor().unwrap();
-
-    // Configure GPIO26 as an ADC input
-    let mut adc_pin_0 = pins.gpio26.into_floating_input();
-
-
+    let mut temperature_sensor = adc.enable_temp_sensor();
 
 
     // TIMER
@@ -139,13 +134,11 @@ fn main() -> ! {
         // temperature sensor
         // Read the raw ADC counts from the temperature sensor channel.
         let temp_sens_adc_counts: u16 = adc.read(&mut temperature_sensor).unwrap();
-        let pin_adc_counts: u16 = adc.read(&mut adc_pin_0).unwrap();
 
         // 32 byte buffer add string with sensor readings
         let mut string_buffer: String<32> = String::new();
 
-let mut temperature_sensor = adc.enable_temp_sensor();
-        writeln!(&mut string_buffer, "ADC readings: CDC: {time:02} Temperature: {temp_sens_adc_counts:02} Pin: {pin_adc_counts:02}").unwrap();
+        writeln!(&mut string_buffer, "ADC readings: CDC: {time:02} Temperature: {temp_sens_adc_counts:02}").unwrap();
 
         // poll usb every 10 ms unless speed is configured
         if !usb_dev.poll(&mut [&mut serial]) {            
