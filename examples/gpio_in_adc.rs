@@ -116,13 +116,15 @@ fn main() -> ! {
     // Configure one of the pins as an ADC input
     let mut adc_pin_0 = pins.gpio27.into_floating_input();
 
+
+
+
+
     loop {
 
         // poll usb every 10 ms unless speed is configured
-        if !usb_dev.poll(&mut [&mut serial]) {
-            continue;
-        }
-
+        usb_dev.poll(&mut [&mut serial]);
+        
         // Read the raw ADC counts from the gpio sensor channel.
         let analog_value: u16 = adc.read(&mut adc_pin_0).unwrap();
 
