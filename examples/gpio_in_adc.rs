@@ -31,10 +31,6 @@ use rp_pico::hal;
 // Some traits we need
 use embedded_hal::adc::OneShot;
 
-
-// Pull in any important traits
-use rp_pico::hal::prelude::*;
-
 // USB Device support
 use usb_device::{class_prelude::*, prelude::*};
 
@@ -76,10 +72,6 @@ fn main() -> ! {
     .ok()
     .unwrap();
 
-    // The delay object lets us wait for specified amounts of time (in
-    // milliseconds)
-    let mut delay = cortex_m::delay::Delay::new(core.SYST, clocks.system_clock.freq().to_Hz());
-
     // The single-cycle I/O block controls our GPIO 
     let sio = hal::Sio::new(pac.SIO);
 
@@ -112,9 +104,6 @@ fn main() -> ! {
         .build();
 
 
-
-
-
     // Enable ADC
     let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
 
@@ -122,11 +111,7 @@ fn main() -> ! {
     let mut adc_pin_0 = pins.gpio27.into_floating_input();
 
 
-
-
     loop {
-
-        let mut buf = [0u8; 64];
 
         // check for new data
         if !usb_dev.poll(&mut [&mut serial]) {
@@ -136,38 +121,14 @@ fn main() -> ! {
         // Read the raw ADC counts from the temperature sensor channel.
         let receive: u16 = adc.read(&mut adc_pin_0).unwrap();
 
-        // convertir a texto solo para efectos de imprimir a consola (en produccion puedes mandar el puro binario)
+        // string buffer de 32 bytes
         let mut text: String<32> = String::new();
-        writeln!(&mut text, "\n Resistor at: {} intensity",receive);
+        writeln!(&mut text, "Resistor at: {receive} intensity");
 
         // This only works reliably because the number of bytes written to
         // the serial port is smaller than the buffers available to the USB
         // peripheral. In general, the return value should be handled, so that
         // bytes not transferred yet don't get lost.
         let _ = serial.write(text.as_bytes());
-
-
     }
 }
-
-
-
-
-
-    match serial.read(&mut buf[..]) {
-        Ok(count) => {
-            // count bytes were read to &buf[..count]
-        },
-        Err(UsbError::WouldBlock) => // No data received
-        Err(err) => // An error occurred
-    };
-
-    match serial.write(&[0x3a, 0x29]) {
-        Ok(count) => {
-            // count bytes were written
-        },
-        Err(UsbError::WouldBlock) => // No data could be written (buffers full)
-        Err(err) => // An error occurred
-    };
-
-// End of file
