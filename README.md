@@ -1,7 +1,5 @@
 ## l10_detector
 
-1 hr
-
 
 ![Alt Text](./docs/pico-datasheet.png)
 
