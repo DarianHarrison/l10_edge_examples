@@ -31,6 +31,7 @@ use rp_pico::hal;
 // Some traits we need
 use embedded_hal::adc::OneShot;
 
+
 // Pull in any important traits
 use rp_pico::hal::prelude::*;
 
@@ -104,11 +105,14 @@ fn main() -> ! {
 
     // Create a USB device with a fake VID and PID
     let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
-        .manufacturer("Fake company")
+        .manufacturer("Lion10")
         .product("Serial port")
         .serial_number("TEST")
-        .device_class(2) // from: https://www.usb.org/defined-class-codes
+        .device_class(4) // from: https://www.usb.org/defined-class-codes
         .build();
+
+    let timer = hal::Timer::new(pac.TIMER, &mut pac.RESETS);
+    let mut counter: u32 = 0;
 
 
     // Enable ADC
@@ -117,67 +121,29 @@ fn main() -> ! {
     // Enable the temperature sense channel
     let mut temperature_sensor = adc.enable_temp_sensor();
 
-    // TIMER
-
-    let timer = hal::Timer::new(pac.TIMER, &mut pac.RESETS);
+    // Configure GPIO26 as an ADC input
+    let mut adc_pin_0 = pins.gpio26.into_floating_input();
 
     loop {
 
-/*        if !usb_dev.poll(&mut [&mut serial]) {
-            continue;
-        }
-*/
         // poll usb every 10 ms
         usb_dev.poll(&mut [&mut serial]);
-        
-        // cdc timer
-        let time = timer.get_counter_low();
 
         // Read the raw ADC counts from the temperature sensor channel.
         let temp_sens_adc_counts: u16 = adc.read(&mut temperature_sensor).unwrap();
+        let pin_adc_counts: u16 = adc.read(&mut adc_pin_0).unwrap();
 
         // convertir a texto solo para efectos de imprimir a consola (en produccion puedes mandar el puro binario)
-        let mut string_buffer: String<32> = String::new();
-        writeln!(&mut string_buffer, "CDC: {time}, Pin counts: {temp_sens_adc_counts}").unwrap();
+        let mut text: String<32> = String::new();
+        writeln!(&mut text, "\n\rCurrent counter: {}\r\n", pin_adc_counts).unwrap();
 
         // This only works reliably because the number of bytes written to
         // the serial port is smaller than the buffers available to the USB
         // peripheral. In general, the return value should be handled, so that
         // bytes not transferred yet don't get lost.
-        let _ = serial.write(string_buffer.as_bytes());
+        let _ = serial.write(text.as_bytes());
+
     }
 }
 
-
-
 // End of file
-/*let mut serial = SerialPort::new(&usb_bus);
-
-let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
-    .product("Serial port")
-    .device_class(USB_CLASS_CDC)
-    .build();
-
-loop {
-    if !usb_dev.poll(&mut [&mut serial]) {
-        continue;
-    }
-
-    let mut buf = [0u8; 64];
-
-    match serial.read(&mut buf[..]) {
-        Ok(count) => {
-            // count bytes were read to &buf[..count]
-        },
-        Err(UsbError::WouldBlock) => // No data received
-        Err(err) => // An error occurred
-    };
-
-    match serial.write(&[0x3a, 0x29]) {
-        Ok(count) => {
-            // count bytes were written
-        },
-        Err(UsbError::WouldBlock) => // No data could be written (buffers full)
-        Err(err) => // An error occurred
-    };
-}*/
