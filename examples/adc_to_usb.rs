@@ -75,10 +75,6 @@ fn main() -> ! {
     .ok()
     .unwrap();
 
-    // The delay object lets us wait for specified amounts of time (in
-    // milliseconds)
-    let mut delay = cortex_m::delay::Delay::new(core.SYST, clocks.system_clock.freq().to_Hz());
-
     // The single-cycle I/O block controls our GPIO 
     let sio = hal::Sio::new(pac.SIO);
 
@@ -138,7 +134,7 @@ fn main() -> ! {
 
         // convertir a texto solo para efectos de imprimir a consola (en produccion puedes mandar el puro binario)
         let mut string_buffer: String<32> = String::new();
-        writeln!(&mut string_buffer, "CDC: {time}, Pin counts: {temp_sens_adc_counts}").unwrap();
+        writeln!(&mut string_buffer, "CDC: {time}, Sensor Reading counts: {temp_sens_adc_counts}").unwrap();
 
         // This only works reliably because the number of bytes written to
         // the serial port is smaller than the buffers available to the USB
