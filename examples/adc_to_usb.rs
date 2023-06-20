@@ -27,10 +27,8 @@ use rp_pico::hal::pac;
 // higher-level drivers.
 use rp_pico::hal;
 
-
 // Some traits we need
 use embedded_hal::adc::OneShot;
-
 
 // Pull in any important traits
 use rp_pico::hal::prelude::*;
@@ -135,7 +133,7 @@ fn main() -> ! {
 
         // convertir a texto solo para efectos de imprimir a consola (en produccion puedes mandar el puro binario)
         let mut text: String<32> = String::new();
-        writeln!(&mut text, "\n\rCurrent counter: {}\r\n", pin_adc_counts).unwrap();
+        writeln!(&mut text, "Current counter: {pin_adc_counts}").unwrap();
 
         // This only works reliably because the number of bytes written to
         // the serial port is smaller than the buffers available to the USB
@@ -146,3 +144,33 @@ fn main() -> ! {
 }
 
 // End of file
+/*let mut serial = SerialPort::new(&usb_bus);
+
+let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
+    .product("Serial port")
+    .device_class(USB_CLASS_CDC)
+    .build();
+
+loop {
+    if !usb_dev.poll(&mut [&mut serial]) {
+        continue;
+    }
+
+    let mut buf = [0u8; 64];
+
+    match serial.read(&mut buf[..]) {
+        Ok(count) => {
+            // count bytes were read to &buf[..count]
+        },
+        Err(UsbError::WouldBlock) => // No data received
+        Err(err) => // An error occurred
+    };
+
+    match serial.write(&[0x3a, 0x29]) {
+        Ok(count) => {
+            // count bytes were written
+        },
+        Err(UsbError::WouldBlock) => // No data could be written (buffers full)
+        Err(err) => // An error occurred
+    };
+}*/
