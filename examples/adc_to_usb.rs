@@ -118,14 +118,11 @@ fn main() -> ! {
     let timer = hal::Timer::new(pac.TIMER, &mut pac.RESETS);
 
     loop {
-
-/*        if !usb_dev.poll(&mut [&mut serial]) {
+        // poll usb every 10 ms (on host)
+        if !usb_dev.poll(&mut [&mut serial]) {
             continue;
         }
-*/
-        // poll usb every 10 ms
-        usb_dev.poll(&mut [&mut serial]);
-        
+
         // cdc timer
         let time = timer.get_counter_low();
 
@@ -145,21 +142,7 @@ fn main() -> ! {
 }
 
 
-
-// End of file
-/*let mut serial = SerialPort::new(&usb_bus);
-
-let mut usb_dev = UsbDeviceBuilder::new(&usb_bus, UsbVidPid(0x16c0, 0x27dd))
-    .product("Serial port")
-    .device_class(USB_CLASS_CDC)
-    .build();
-
-loop {
-    if !usb_dev.poll(&mut [&mut serial]) {
-        continue;
-    }
-
-    let mut buf = [0u8; 64];
+/*    let mut buf = [0u8; 64];
 
     match serial.read(&mut buf[..]) {
         Ok(count) => {
@@ -175,5 +158,4 @@ loop {
         },
         Err(UsbError::WouldBlock) => // No data could be written (buffers full)
         Err(err) => // An error occurred
-    };
-}*/
+    };*/
