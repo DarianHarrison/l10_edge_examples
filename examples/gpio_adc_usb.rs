@@ -27,7 +27,6 @@ use rp_pico::hal::pac;
 // higher-level drivers.
 use rp_pico::hal;
 
-
 // Some traits we need
 use embedded_hal::adc::OneShot;
 
@@ -54,15 +53,16 @@ use heapless::String;
 /// received over USB Serial.
 #[entry]
 fn main() -> ! {
+
     // Grab our singleton objects
     let mut pac = pac::Peripherals::take().unwrap();
     let core = pac::CorePeripherals::take().unwrap();
 
+    // The watchdog is a countdown timer that can restart parts of the chip if it reaches zero.
     // Set up the watchdog driver - needed by the clock setup code
     let mut watchdog = hal::Watchdog::new(pac.WATCHDOG);
 
     // Configure the clocks
-    //
     // The default is to generate a 125 MHz system clock
     let clocks = hal::clocks::init_clocks_and_plls(
         rp_pico::XOSC_CRYSTAL_FREQ,
