@@ -5,6 +5,9 @@
 Raspberry Pi Pico DataSheet
 https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
 
+rp2040 microcontroller DataSheet
+https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf
+
 
 ![Alt Text](./docs/ccd-datasheet.png)
 
