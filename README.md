@@ -6,6 +6,14 @@ Raspberry Pi Pico DataSheet
 https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
 
 
+![Alt Text](./docs/ccd-datasheet.png)
+
+3000-pixel CCD Linear Image Sensor (B/W) - ILX526A Datasheet (PDF) - Sony Corporation
+https://pdf1.alldatasheet.com/datasheet-pdf/view/47503/SONY/ILX526A.html
+
+
+
+
 ### GPIO ADC to USB HOST
 
 1.) Wires
@@ -13,13 +21,13 @@ https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
 ![Alt Text](./docs/photoresistor.png)
 
 
-2.) Edge
-https://github.com/DarianHarrison/l10_edge
+2.) Run photoresistor example
 ```sh
 cargo run --release --example gpio_in_adc
 ```
 
-3.) Core
+
+3.) run core to read data over usb
 https://github.com/DarianHarrison/l10_core
 ```sh
 cargo run 0x16c0 0x27dd
