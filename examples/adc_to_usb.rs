@@ -27,7 +27,6 @@ use rp_pico::hal::pac;
 // higher-level drivers.
 use rp_pico::hal;
 
-
 // Some traits we need
 use embedded_hal::adc::OneShot;
 
@@ -74,10 +73,6 @@ fn main() -> ! {
     )
     .ok()
     .unwrap();
-
-    // The delay object lets us wait for specified amounts of time (in
-    // milliseconds)
-    let mut delay = cortex_m::delay::Delay::new(core.SYST, clocks.system_clock.freq().to_Hz());
 
     // The single-cycle I/O block controls our GPIO 
     let sio = hal::Sio::new(pac.SIO);
@@ -153,6 +148,7 @@ fn main() -> ! {
             }, 
             Err(err) => {
                 // An error occurred
+            }
         };
     }
 }
