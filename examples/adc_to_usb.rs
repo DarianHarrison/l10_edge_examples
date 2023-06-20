@@ -75,6 +75,10 @@ fn main() -> ! {
     .ok()
     .unwrap();
 
+    // The delay object lets us wait for specified amounts of time (in
+    // milliseconds)
+    let mut delay = cortex_m::delay::Delay::new(core.SYST, clocks.system_clock.freq().to_Hz());
+
     // The single-cycle I/O block controls our GPIO 
     let sio = hal::Sio::new(pac.SIO);
 
@@ -118,7 +122,8 @@ fn main() -> ! {
     let timer = hal::Timer::new(pac.TIMER, &mut pac.RESETS);
 
     loop {
-        // poll usb every 10 ms (on host)
+
+        // poll usb every 10 ms
         if !usb_dev.poll(&mut [&mut serial]) {
             continue;
         }
@@ -130,32 +135,24 @@ fn main() -> ! {
         let temp_sens_adc_counts: u16 = adc.read(&mut temperature_sensor).unwrap();
 
         // convertir a texto solo para efectos de imprimir a consola (en produccion puedes mandar el puro binario)
-        let mut string_buffer: String<32> = String::new();
-        writeln!(&mut string_buffer, "CDC: {time}, Sensor Reading counts: {temp_sens_adc_counts}").unwrap();
+        let mut string_buffer: String<32> = String::new(); // alternative let mut buf = [0u8; 32];
+
+        //writeln!(&mut string_buffer, "ADC readings: CDC: {time}, Temp counts: {temp_sens_adc_counts}, Pin counts: {pin_adc_counts}").unwrap();
+        writeln!(&mut string_buffer, "CDC: {time}, Pin counts: {temp_sens_adc_counts}").unwrap();
 
         // This only works reliably because the number of bytes written to
         // the serial port is smaller than the buffers available to the USB
         // peripheral. In general, the return value should be handled, so that
         // bytes not transferred yet don't get lost.
-        let _ = serial.write(string_buffer.as_bytes());
+        match serial.write(&string_buffer.as_bytes()) {
+            Ok(count) => {
+                // count bytes were written
+            },
+            Err(UsbError::WouldBlock) => {
+                // No data could be written (buffers full) 
+            }, 
+            Err(err) => {
+                // An error occurred
+        };
     }
 }
-
-
-/*    let mut buf = [0u8; 64];
-
-    match serial.read(&mut buf[..]) {
-        Ok(count) => {
-            // count bytes were read to &buf[..count]
-        },
-        Err(UsbError::WouldBlock) => // No data received
-        Err(err) => // An error occurred
-    };
-
-    match serial.write(&[0x3a, 0x29]) {
-        Ok(count) => {
-            // count bytes were written
-        },
-        Err(UsbError::WouldBlock) => // No data could be written (buffers full)
-        Err(err) => // An error occurred
-    };*/
