@@ -35,16 +35,22 @@ cargo run 0x16c0 0x27dd
 
 ## sources
 
- // board-crates
- https://crates.io/crates/embedded-hal
- https://crates.io/crates/rp2040-hal
- https://crates.io/crates/rp-pico
+// board-crates
+```
+https://crates.io/crates/embedded-hal
+https://crates.io/crates/rp2040-hal
+https://crates.io/crates/rp-pico
+```
 
- // arm-crates
- https://crates.io/crates/cortex-m
+// arm-crates
+```
+https://crates.io/crates/cortex-m
+```
 
- // core
- usb host system
- https://github.com/rust-embedded-community/usbd-serial
- https://github.com/a1ien/rusb
- https://github.com/rust-embedded-community/usb-device
+// core
+usb host system
+```
+https://github.com/rust-embedded-community/usbd-serial
+https://github.com/a1ien/rusb
+https://github.com/rust-embedded-community/usb-device
+```
