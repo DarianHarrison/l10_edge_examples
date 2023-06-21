@@ -1,5 +1,12 @@
 ## l10_edge
 
+// TODO: try to split rx receive and tx transmit on USB 
+// TODO: verify how to configure pio (programmable input output)
+// TODO: also need to export the clock for external devices, such as CCD
+// TODO: also need to learn how to set up an external clock
+// TODO: clock dividers and baud rates
+
+
 ![Alt Text](./docs/pico-datasheet.png)
 
 Raspberry Pi Pico DataSheet
@@ -7,6 +14,12 @@ https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
 
 rp2040 microcontroller DataSheet
 https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf
+
+
+rp2040 microcontroller datasheet
+https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
+
+
 
 
 ![Alt Text](./docs/ccd-datasheet.png)
