@@ -1,10 +1,10 @@
 ## l10_edge
 
 // TODO: try to split rx receive and tx transmit on USB 
-// TODO: set up an external clock
-// TODO: clock dividers and baud rates
-// TODO: autopush
-
+// TODO: set up an external clock with PIO
+// TODO: clock dividers and baud rates with PIO
+// TODO: autopush with PIO
+// TODO: sample external gpio pins with PIO
 
 ![Alt Text](./docs/pico-datasheet.png)
 
