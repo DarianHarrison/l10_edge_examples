@@ -1,6 +1,6 @@
 ## l10_edge
 
-// TODO: try to split rx receive and tx transmit on USB 
+// TODO: try to split rx receive and tx transmit on USB (USB PHY)
 // TODO: set up an external clock with PIO
 // TODO: clock dividers and baud rates with PIO
 // TODO: autopush with PIO
