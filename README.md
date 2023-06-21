@@ -3,7 +3,7 @@
 // TODO: try to split rx receive and tx transmit on USB 
 // TODO: set up an external clock
 // TODO: clock dividers and baud rates
-
+// TODO: autopush
 
 
 ![Alt Text](./docs/pico-datasheet.png)
