@@ -1,10 +1,9 @@
 ## l10_edge
 
 // TODO: try to split rx receive and tx transmit on USB 
-// TODO: verify how to configure pio (programmable input output)
-// TODO: also need to export the clock for external devices, such as CCD
-// TODO: also need to learn how to set up an external clock
+// TODO: set up an external clock
 // TODO: clock dividers and baud rates
+
 
 
 ![Alt Text](./docs/pico-datasheet.png)
