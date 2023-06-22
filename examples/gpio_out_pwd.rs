@@ -82,19 +82,12 @@ fn main() -> ! {
         &mut pac.RESETS,
     );
 
-
-
     // The delay object lets us wait for specified amounts of time (in
     // milliseconds)
     let mut delay = cortex_m::delay::Delay::new(core.SYST, clocks.system_clock.freq().to_Hz());
 
     // Init PWMs
     let mut pwm_slices = hal::pwm::Slices::new(pac.PWM, &mut pac.RESETS);
-
-
-    // Our LED output
-    let mut led_pin = pins.gpio27.into_push_pull_output();
-
 
     // Configure PWM5 // see: https://docs.rs/rp2040-hal/0.8.2/rp2040_hal/pwm/enum.Pwm5.html
     let pwm = &mut pwm_slices.pwm5;
@@ -105,6 +98,9 @@ fn main() -> ! {
     // https://docs.rs/rp2040-hal/0.8.2/rp2040_hal/pwm/enum.Pwm5.html
     let channel = &mut pwm.channel_b;
     channel.output_to(led_pin);
+
+    // Our LED output
+    let mut led_pin = pins.gpio27.into_push_pull_output();
 
     // Infinite loop, fading LED up and down
     loop {
