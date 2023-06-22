@@ -1,13 +1,13 @@
 # l10_edge - Setup
 
-* [ ] 0. std
-* [ ] 1. no_std
-* [ ] 2. embedded tools
-* [ ] 3. l10_edge-devel
-* [ ] 4. Run no_std
-* [ ] 5. Play the Device
+* [X] 0. prerequisites
+* [X] 1. std
+* [X] 2. no_std
 
-## 0. std
+
+## 0. prerequisites
+
+## 1. std
 ```sh
 rustup default stable
 rustup update
@@ -16,7 +16,7 @@ rustup update stable
 rustc --version --verbose
 ```
 
-## 1. no_std
+## 2. no_std
 
 a) download target architectures for the following boards:
 
