@@ -14,8 +14,6 @@
 
 ## 0. Prerequisites
 
-* 0. 
-
 ```sh
 git clone https://github.com/DarianHarrison/l10_edge
 cd l10_edge
