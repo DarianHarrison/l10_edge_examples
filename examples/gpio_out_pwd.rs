@@ -91,7 +91,6 @@ fn main() -> ! {
     pwm.set_ph_correct();
     pwm.enable();
 
-
     // Our LED output
     let led_pin = pins.gpio15.into_push_pull_output();
 
