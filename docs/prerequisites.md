@@ -1,4 +1,4 @@
-# Lion10 Edge Setup
+# Lion10 Edge Prerequisites
 
 * [X] 0. prerequisites
 * [X] 1. std
@@ -37,6 +37,9 @@ https://github.com/DarianHarrison/l10_core/releases
 ```
 
 ## 1. std
+
+### A) Update Rust
+
 ```sh
 rustup default stable
 rustup update
@@ -47,19 +50,19 @@ rustc --version --verbose
 
 ## 2. no_std
 
-### A) download target architectures
+### A) Download target architectures
 ```sh
 rustup target add thumbv6m-none-eabi # rp-rs
 rustup target add thumbv7em-none-eabihf # stm32f3-discovery & nucleo-l432kc
 rustup target add riscv32imac-unknown-none-elf # board-hifive1-revb
 ```
 
-### B) tool for creating UF2 images for the RP2040 USB Bootloader
+### B) Tool for creating UF2 images for the RP2040 USB Bootloader
 ```sh
 cargo install elf2uf2-rs --locked
 ```
 
-### C) For flashing over the SWD pins using a supported JTAG probe
+### C) Tool for flashing over the SWD pins using a supported JTAG probe
 ```sh
 cargo install probe-run
 ```
