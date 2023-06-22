@@ -5,7 +5,7 @@
 
 ## 0. Prerequisites
 
-https://github.com/DarianHarrison/l10_edge/blob/devel/docs/README.md
+https://github.com/DarianHarrison/l10_edge/docs/prerequisites.md
 
 
 ## 1. Examples
@@ -15,7 +15,7 @@ https://github.com/DarianHarrison/l10_edge/blob/devel/docs/README.md
 
 #### A.0) Wiring
 
-![Alt Text](./docs/led.png)
+![Alt Text](./docs/assets/led.png)
 
 #### A.1) GPIO output LED Blinky
 
@@ -41,12 +41,12 @@ cargo run --release --example gpio_out_pwd
 cargo run --release --example pio_out_pwm
 ```
 
-### B) Input
 
+### B) Input
 
 #### B.0) Wiring
 
-![Alt Text](./docs/photoresistor.png)
+![Alt Text](./docs/assets/photoresistor.png)
 
 #### B.1) GPIO input - Photoresistor ADC to USB
 
@@ -61,37 +61,6 @@ git clone https://github.com/DarianHarrison/l10_core
 cd l10_core
 cargo run 0x16c0 0x27dd
 ```
-
-
-## References
-
-### board-crates
-* https://crates.io/crates/embedded-hal
-* https://crates.io/crates/rp2040-hal
-* https://crates.io/crates/rp-pico
-
-// arm-crates
-https://crates.io/crates/cortex-m
-
-// core
-usb host system
-https://github.com/rust-embedded-community/usbd-serial
-https://github.com/a1ien/rusb
-https://github.com/rust-embedded-community/usb-device
-
-3000-pixel CCD Linear Image Sensor (B/W) - ILX526A Datasheet (PDF) - Sony Corporation
-https://pdf1.alldatasheet.com/datasheet-pdf/view/47503/SONY/ILX526A.html
-
-Raspberry Pi Pico DataSheet
-https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
-
-rp2040 microcontroller DataSheet
-https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf
-
-
-![Alt Text](./docs/pico.png)
-
-![Alt Text](./docs/ccd.png)
 
 
 

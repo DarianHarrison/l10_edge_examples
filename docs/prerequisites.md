@@ -1,4 +1,4 @@
-# l10_edge - Setup
+# Lion10 Edge Setup
 
 * [X] 0. prerequisites
 * [X] 1. std
