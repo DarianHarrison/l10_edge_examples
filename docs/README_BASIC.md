@@ -1,66 +1,55 @@
-# l10_edge-devel
+# l10_edge - Setup
 
-- [ ] 0. Prereqs: steps 1-5 of **l10_core-devel**
-- [ ] 1. Install Rust no_std
-- [ ] 2. Install Embedded Tools
-- [ ] 3. l10_edge-devel
-- [ ] 4. Run no_std
-- [ ] 5. Play the Device
+* [ ] 0. Prereqs: steps 1-5 of **l10_core-devel**
+* [ ] 1. no_std
+* [ ] 2. embedded tools
+* [ ] 3. l10_edge-devel
+* [ ] 4. Run no_std
+* [ ] 5. Play the Device
 
-## 1.) Rust no_std
-
-update your rust installation and ensure you are on the stable build
+## 0. l10_core
 ```sh
-cd ~/Desktop/l10_edge
 rustup default stable ; rustup update ; rustup self update ; rustup update stable ; rustc --version --verbose
 ```
 
-download the compilation target architectures
+## 1. no_std
 ```sh
-# stm32f3-discovery, board-hifive1-revb, rp-rs, nucleo-l432kc
+rustup default stable ; rustup update ; rustup self update ; rustup update stable ; rustc --version --verbose
+```
+
+## 2. embedded tools
+
+a) download target architectures for the following boards:
+
+* stm32f3-discovery
+* board-hifive1-revb
+* rp-rs
+* nucleo-l432kc
+```sh
 rustup target add thumbv7em-none-eabihf ; rustup target add riscv32imac-unknown-none-elf ; rustup target add thumbv6m-none-eabi ; rustup target add thumbv7em-none-eabihf
 ```
 
-## 2.) Embedded Tools
-
-For creating UF2 images for the RP2040 USB Bootloader
+b) tool for creating UF2 images for the RP2040 USB Bootloader
 ```sh
 cargo install elf2uf2-rs --locked
 ```
 
-For flashing over the SWD pins using a supported JTAG probe
+c) For flashing over the SWD pins using a supported JTAG probe
 ```sh
 cargo install probe-run
 ```
 
-## 3.) l10_edge-devel
+d) Allow USB device access as ```non-root```
 
-```sh
-cd ~/Desktop
-git clone https://github.com/DarianHarrison/l10_edge
-cd l10_edge
-git checkout devel
-git branch
-```
-
-try to commit and push
-```sh
-git commit
-git push
-git pull
-```
 
 ```sh
 lsusb
 ```
-Bus 001 Device 016: ID 16c0:27dd Van Ooijen Technische Informatica CDC-ACM class devices (modems)
+Bus 001 Device 016: ID **16c0:27dd** Van Ooijen Technische Informatica CDC-ACM class devices (modems)
 
-
-Set devices without root privilege
-```sh
-sudo sh -c "cat << 'EOF' >> /etc/udev/rules.d/70-st-link.rules
-ATTRS{idVendor}=="1366", ATTRS{idProduct}=="1051", TAG+="uaccess"
-EOF"
+add this line to the following file: ```/etc/udev/rules.d/70-st-link.rules```
+```sh  
+ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27dd", TAG+="uaccess"
 ```
 ```sh
 sudo udevadm control --reload-rules

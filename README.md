@@ -1,7 +1,7 @@
 # l10_edge
 
 ## TODOS
-- [ ] configure different clocks and frequencies (3 to 5 examples)
+* [ ] configure different clocks and frequencies (3 to 5 examples)
 * [ ] try to split rx receive and tx transmit on USB (USB PHY)
 * [ ] set up an external clock with PIO
 * [ ] clock dividers and baud rates with PIO
@@ -15,17 +15,17 @@
 ## 0. Prerequisites
 
 * 0. 
-* 1. 
+
+```sh
+git clone https://github.com/DarianHarrison/l10_edge
+cd l10_edge
+```
 
 ## 1. Examples
 
 ### A) Output
 
-#### A.0) Wiring
-
-
 ![Alt Text](./docs/led.png)
-
 
 #### A.1) GPIO output LED Blinky
 ```sh
@@ -44,11 +44,7 @@ cargo run --release --example pio_out_pwm
 
 ### B) Input
 
-#### B.0) Wiring
-
-
 ![Alt Text](./docs/photoresistor.png)
-
 
 #### B.1) GPIO input - Photoresistor ADC to USB
 
@@ -59,8 +55,6 @@ cargo run --release --example gpio_in_adc_to_usb
 
 b) on another terminal - read data over usb
 ```sh
-git clone https://github.com/DarianHarrison/l10_core
-cd l10_core
 cargo run 0x16c0 0x27dd
 ```
 
