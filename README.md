@@ -28,16 +28,26 @@ cd l10_edge
 ![Alt Text](./docs/led.png)
 
 #### A.1) GPIO output LED Blinky
+
+a) Plug the Pi Pico device to USB **while holding boostel**
+
+b) compile & run program
 ```sh
 cargo run --release --example gpio_out_blinky
 ```
 
 #### A.2) GPIO output - LED PWM
+a) Plug the Pi Pico device to USB **while holding boostel**
+
+b) compile & run program
 ```sh
 cargo run --release --example gpio_out_pwd
 ```
 
 #### A.3) PIO output - LED PWM
+a) Plug the Pi Pico device to USB **while holding boostel**
+
+b) compile & run program
 ```sh
 cargo run --release --example pio_out_pwm
 ```
@@ -48,16 +58,19 @@ cargo run --release --example pio_out_pwm
 
 #### B.1) GPIO input - Photoresistor ADC to USB
 
-a) on first terminal
+a) Plug the Pi Pico device to USB **while holding boostel**
+
+b) compile & run program
 ```sh
 cargo run --release --example gpio_in_adc_to_usb
 ```
 
-b) on another terminal - read data over usb
+c) on another terminal - read data over usb
 ```sh
+git clone https://github.com/DarianHarrison/l10_core
+cd l10_core
 cargo run 0x16c0 0x27dd
 ```
-
 
 ## References
 
