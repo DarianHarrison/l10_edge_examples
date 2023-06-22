@@ -3,6 +3,7 @@
 // TODO: try to split rx receive and tx transmit on USB (USB PHY)
 // TODO: set up an external clock with PIO
 // TODO: clock dividers and baud rates with PIO
+// TODO: PWM Period examples
 // TODO: autopush with PIO
 // TODO: sample external gpio pins with PIO
 
