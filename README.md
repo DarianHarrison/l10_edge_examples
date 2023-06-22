@@ -1,5 +1,36 @@
 # l10_edge
 
+## 0. Prerequisites
+
+## 1. Examples
+
+
+### 1) GPIO output LED Blinky
+
+a)
+```
+```
+
+### 2) GPIO output - LED PWM
+
+a)
+```
+```
+
+### 3) PIO output - LED PWM
+
+a)
+```
+```
+
+### 4) GPIO input - Photoresistor ADC to USB
+
+a)
+```
+```
+
+
+
 ## TODOS
 * [ ] try to split rx receive and tx transmit on USB (USB PHY)
 * [ ] set up an external clock with PIO
