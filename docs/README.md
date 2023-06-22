@@ -47,13 +47,7 @@ rustc --version --verbose
 
 ## 2. no_std
 
-### A) download target architectures for the following boards:
-
-* rp-rs
-* nucleo-l432kc
-* stm32f3-discovery
-* board-hifive1-revb
-
+### A) download target architectures
 ```sh
 rustup target add thumbv6m-none-eabi # rp-rs
 rustup target add thumbv7em-none-eabihf # stm32f3-discovery & nucleo-l432kc
