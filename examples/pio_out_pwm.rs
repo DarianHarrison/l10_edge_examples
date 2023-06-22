@@ -132,9 +132,9 @@ fn main() -> ! {
     let program = pio_file!("./examples/pwm.pio", select_program("pwm"),);
     let installed = pio0.install(&program.program).unwrap();
 
-    // Set gpio25 to pio
-    let _led: hal::gpio::Pin<_, hal::gpio::FunctionPio0> = pins.led.into_mode();
-    let led_pin_id = 25;
+    // Set gpio15 to pio
+    let _led: hal::gpio::Pin<_, hal::gpio::FunctionPio0> = pins.gpio15.into_mode();
+    let led_pin_id = 15;
 
     // Build the pio program and set pin both for set and side set!
     // We are running with the default divider which is 1 (max speed)

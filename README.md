@@ -1,7 +1,5 @@
 # l10_edge
 
-* [ ] TODO: TEST all examples configure different clocks and frequencies (3 to 5 examples)
-
 * [X] 0. Prerequisites
 * [X] 1. Examples
 

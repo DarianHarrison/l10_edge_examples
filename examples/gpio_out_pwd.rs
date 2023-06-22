@@ -16,9 +16,6 @@ use rp_pico::entry;
 // GPIO traits
 use embedded_hal::PwmPin;
 
-// GPIO traits
-use embedded_hal::digital::v2::OutputPin;
-
 // Ensure we halt the program on panic (if we don't mention this crate it won't
 // be linked)
 use panic_halt as _;
@@ -90,17 +87,17 @@ fn main() -> ! {
     let mut pwm_slices = hal::pwm::Slices::new(pac.PWM, &mut pac.RESETS);
 
     // Configure PWM5 // see: https://docs.rs/rp2040-hal/0.8.2/rp2040_hal/pwm/enum.Pwm5.html
-    let pwm = &mut pwm_slices.pwm5;
+    let pwm = &mut pwm_slices.pwm7;
     pwm.set_ph_correct();
     pwm.enable();
 
-    // Output channel B on PWM4 to the LED pin 
-    // https://docs.rs/rp2040-hal/0.8.2/rp2040_hal/pwm/enum.Pwm5.html
-    let channel = &mut pwm.channel_b;
-    channel.output_to(led_pin);
 
     // Our LED output
-    let mut led_pin = pins.gpio27.into_push_pull_output();
+    let led_pin = pins.gpio15.into_push_pull_output();
+
+    // Output channel B on PWM7 to the LED pin 
+    let channel = &mut pwm.channel_b;
+    channel.output_to(led_pin);
 
     // Infinite loop, fading LED up and down
     loop {
