@@ -14,39 +14,16 @@ Any of the following Operating Systems are supported:
 * Ubuntu 22.04 or higher
 * RHEL 9 or higher
 
-
-### B) Rust Programming Language
-
-* Rust 1.31.0 or higher
-```
-https://www.rust-lang.org/tools/install
-```
-
-### C) Lion10 Edge (no_std)
-
-* lion10-edge-0.0.1 or higher
-```
-https://github.com/DarianHarrison/l10_edge/releases
-```
-
-### D) Lion10 Core (std) Software
-
-* lion10-core-0.0.1 or higher
-```
-https://github.com/DarianHarrison/l10_core/releases
-```
-
 ## 1. std
 
-### A) Update Rust
+### A) Rust Programming Language
 
-```sh
-rustup default stable
-rustup update
-rustup self update
-rustup update stable
-rustc --version --verbose
-```
+* Rust 1.31.0 or higher ```https://www.rust-lang.org/tools/install```
+
+### B) Lion10 Core (std) Software
+
+* lion10-core-0.0.1 or higher: ```https://github.com/DarianHarrison/l10_core/releases```
+
 
 ## 2. no_std
 
@@ -90,3 +67,7 @@ sudo udevadm control --reload-rules
 ```
 plug board back out and back in
 ```
+
+### E) Lion10 Edge (no_std)
+
+* lion10-edge-0.0.1 or higher: ```https://github.com/DarianHarrison/l10_edge/releases```
