@@ -1,6 +1,6 @@
 # l10_edge - Setup
 
-* [X] 0. prerequisites
+* [ ] 0. prerequisites
 * [X] 1. std
 * [X] 2. no_std
 
