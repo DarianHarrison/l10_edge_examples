@@ -1,25 +1,15 @@
 # l10_edge
 
-## TODOS
-* [ ] configure different clocks and frequencies (3 to 5 examples)
-* [ ] try to split rx receive and tx transmit on USB (USB PHY)
-* [ ] set up an external clock with PIO
-* [ ] clock dividers and baud rates with PIO
-* [ ] PWM Period examples
-* [ ] autopush with PIO
-* [ ] sample external gpio pins with PIO
-* [ ] access default usb counter instead of timer for the wrapping CDC 
-* [ ] access default usb counter instead of timer
-* [ ] interpolator test
+* [X] 0. Prerequisites
+* [X] 1. Examples
 
 ## 0. Prerequisites
 
-```sh
-git clone https://github.com/DarianHarrison/l10_edge
-cd l10_edge
-```
+https://github.com/DarianHarrison/l10_edge/blob/devel/docs/README.md
+
 
 ## 1. Examples
+
 
 ### A) Output
 
@@ -27,7 +17,7 @@ cd l10_edge
 
 #### A.1) GPIO output LED Blinky
 
-a) Plug the Pi Pico device to USB **while holding boostel**
+a) Plug the Pi Pico device to USB ```while holding boostel```
 
 b) compile & run program
 ```sh
@@ -35,7 +25,7 @@ cargo run --release --example gpio_out_blinky
 ```
 
 #### A.2) GPIO output - LED PWM
-a) Plug the Pi Pico device to USB **while holding boostel**
+a) Plug the Pi Pico device to USB ```while holding boostel```
 
 b) compile & run program
 ```sh
@@ -43,12 +33,13 @@ cargo run --release --example gpio_out_pwd
 ```
 
 #### A.3) PIO output - LED PWM
-a) Plug the Pi Pico device to USB **while holding boostel**
+a) Plug the Pi Pico device to USB ```while holding boostel```
 
 b) compile & run program
 ```sh
 cargo run --release --example pio_out_pwm
 ```
+
 
 ### B) Input
 
@@ -56,7 +47,7 @@ cargo run --release --example pio_out_pwm
 
 #### B.1) GPIO input - Photoresistor ADC to USB
 
-a) Plug the Pi Pico device to USB **while holding boostel**
+a) Plug the Pi Pico device to USB ```while holding boostel```
 
 b) compile & run program
 ```sh
@@ -70,12 +61,13 @@ cd l10_core
 cargo run 0x16c0 0x27dd
 ```
 
+
 ## References
 
-// board-crates
-https://crates.io/crates/embedded-hal
-https://crates.io/crates/rp2040-hal
-https://crates.io/crates/rp-pico
+### board-crates
+* https://crates.io/crates/embedded-hal
+* https://crates.io/crates/rp2040-hal
+* https://crates.io/crates/rp-pico
 
 // arm-crates
 https://crates.io/crates/cortex-m
@@ -99,3 +91,17 @@ https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf
 ![Alt Text](./docs/pico.png)
 
 ![Alt Text](./docs/ccd.png)
+
+
+
+## TODOS
+* [ ] configure different clocks and frequencies (3 to 5 examples)
+* [ ] try to split rx receive and tx transmit on USB (USB PHY)
+* [ ] set up an external clock with PIO
+* [ ] clock dividers and baud rates with PIO
+* [ ] PWM Period examples
+* [ ] autopush with PIO
+* [ ] sample external gpio pins with PIO
+* [ ] access default usb counter instead of timer for the wrapping CDC 
+* [ ] access default usb counter instead of timer
+* [ ] interpolator test
