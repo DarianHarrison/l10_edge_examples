@@ -30,7 +30,7 @@ cargo run --release --example gpio_out_blinky
 * a) Plug the Pi Pico device to USB ```while holding boostel```
 * b) compile & run program
 ```sh
-cargo run --release --example gpio_out_pwd
+cargo run --release --example gpio_out_pwm
 ```
 
 #### A.3) PIO output - LED PWM
