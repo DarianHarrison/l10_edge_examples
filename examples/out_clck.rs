@@ -2,7 +2,6 @@
 #![no_main]
 
 use rp_pico::entry;
-use embedded_hal::digital::v2::OutputPin;
 use panic_halt as _;
 use rp_pico::hal::prelude::*;
 use rp_pico::hal::pac;
@@ -61,7 +60,10 @@ fn main() -> ! {
     // 3. Enable specific Pin functions
 
     // configure LED pin for Pio0.
-    let led_pin: hal::gpio::Pin<_, hal::gpio::FunctionPio0> = pins.led.into_mode(); // function selects which peripheral is in control of the GPIO
+    // function selects which peripheral is in control of the GPIO
+    // Specify the target type and use `.into_mode()`
+    let led_pin: hal::gpio::Pin<_, hal::gpio::FunctionPio0> = pins.led.into_mode();
+
 
     // PIN id for use inside of PIO
     let led_pin_id = led_pin.id().num;
@@ -101,7 +103,7 @@ fn main() -> ! {
 
     // StateMachine
 
-    // QUESTION: it seems that sm is using system clock, and not the PIO block state machine, 
+    // each state machine starts off with the state machine
     let (sm0_div_int, sm0_div_frac) = (0, 0);
     sm0.clock_divisor_fixed_point(sm0_div_int, sm0_div_frac);
 
