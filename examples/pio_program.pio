@@ -1,0 +1,6 @@
+.program buzzer_clck
+    pull(block)
+    wrap_target:
+        jmp(x--)
+        wrap()
+.end
