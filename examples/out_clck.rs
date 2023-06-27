@@ -2,7 +2,6 @@
 #![no_main]
 
 use rp_pico::entry;
-use embedded_hal::digital::v2::OutputPin;
 use panic_halt as _;
 use rp_pico::hal::prelude::*;
 use rp_pico::hal::pac;
@@ -33,7 +32,22 @@ fn main() -> ! {
         &mut pac.RESETS,
     );
 
+<<<<<<< HEAD
     let led_pin: hal::gpio::Pin<_, hal::gpio::FunctionPio0> = pins.gpio17.into_mode();
+=======
+    /////////////////////
+
+
+    // 3. Enable specific Pin functions
+
+    // configure LED pin for Pio0.
+    // function selects which peripheral is in control of the GPIO
+    // Specify the target type and use `.into_mode()`
+    let led_pin: hal::gpio::Pin<_, hal::gpio::FunctionPio0> = pins.led.into_mode();
+
+
+    // PIN id for use inside of PIO
+>>>>>>> b6a8a54614b6c0e1dbfb837da999764410a195b8
     let led_pin_id = led_pin.id().num;
 
     let (mut pio0, sm0, _, _, _) = pac.PIO0.split(&mut pac.RESETS);
@@ -43,6 +57,14 @@ fn main() -> ! {
         .set_pins(led_pin_id, 1)
         .build(sm0);
 
+<<<<<<< HEAD
+=======
+
+
+    // StateMachine
+
+    // each state machine starts off with the state machine
+>>>>>>> b6a8a54614b6c0e1dbfb837da999764410a195b8
     let (sm0_div_int, sm0_div_frac) = (0, 0);
     sm0.clock_divisor_fixed_point(sm0_div_int, sm0_div_frac);
     sm0.set_pindirs([(led_pin_id, hal::pio::PinDir::Output)]);
