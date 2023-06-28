@@ -74,17 +74,3 @@ git clone https://github.com/DarianHarrison/l10_core
 cd l10_core
 cargo run 0x16c0 0x27dd
 ```
-
-
-
-## TODOS
-* [ ] configure different clocks and frequencies (3 to 5 examples)
-* [ ] try to split rx receive and tx transmit on USB (USB PHY)
-* [ ] set up an external clock with PIO
-* [ ] clock dividers and baud rates with PIO
-* [ ] PWM Period examples
-* [ ] autopush with PIO
-* [ ] sample external gpio pins with PIO
-* [ ] access default usb counter instead of timer for the wrapping CDC 
-* [ ] access default usb counter instead of timer
-* [ ] interpolator test
