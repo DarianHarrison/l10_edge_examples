@@ -1,78 +1,58 @@
-//! # Pico USB Serial Example
-//!
-//! Creates a USB Serial device on a Pico board, with the USB driver running in
-//! the main thread.
-//!
-//! This will create a USB Serial device echoing anything it receives. Incoming
-//! ASCII characters are converted to upercase, so you can tell it is working
-//! and not just local-echo!
-//!
-//! See the `Cargo.toml` file for Copyright and license details.
+// The Pico has a 12-bit ADC, meaning that a read operation will return a number ranging from 0 to 4095
+// Therefore, the resolution of the ADC is 3.3/4096, so roughly steps of 0.8 millivolts. 
+// IMPORTANT: PIO state machines can't sample the ADC directly. If you want PIO You could use a PIO to trigger a sample, or use external ADC
 
 #![no_std]
 #![no_main]
 
-// The macro for our start-up function
 use rp_pico::entry;
-
-// Ensure we halt the program on panic (if we don't mention this crate it won't
-// be linked)
 use panic_halt as _;
-
-// A shorter alias for the Peripheral Access Crate, which provides low-level
-// register access
 use rp_pico::hal::pac;
-
-// A shorter alias for the Hardware Abstraction Layer, which provides
-// higher-level drivers.
 use rp_pico::hal;
-
-
-// Some traits we need
 use embedded_hal::adc::OneShot;
 
-// USB Device support
-use usb_device::{class_prelude::*, prelude::*};
-
-// USB Communications Class Device support
+use usb_device::class_prelude::UsbBusAllocator;
 use usbd_serial::SerialPort;
-
-// Used to demonstrate writing formatted strings
-use core::fmt::Write;
+use usb_device::prelude::UsbDeviceBuilder;
+use usb_device::prelude::UsbVidPid;
 use heapless::String;
+use core::fmt::Write;
 
-/// Entry point to our bare-metal application.
-///
-/// The `#[entry]` macro ensures the Cortex-M start-up code calls this function
-/// as soon as all global variables are initialised.
-///
-/// The function configures the RP2040 peripherals, then echoes any characters
-/// received over USB Serial.
 #[entry]
 fn main() -> ! {
-    // Grab our singleton objects
-    let mut pac = pac::Peripherals::take().unwrap();
-    let core = pac::CorePeripherals::take().unwrap();
+
+    /////////////////////
+    // BOARD SETUP
+    /////////////////////
+
+    // 0. Grab our singleton objects
+
+    let mut pac = pac::Peripherals::take().unwrap(); // rp2040 peripherals
+    // let core = pac::CorePeripherals::take().unwrap(); // cortex_m peripherals
+
+
+    // 1. Configure the clocks
 
     // Set up the watchdog driver - needed by the clock setup code
     let mut watchdog = hal::Watchdog::new(pac.WATCHDOG);
 
-    // Configure the clocks
-    //
     // The default is to generate a 125 MHz system clock
     let clocks = hal::clocks::init_clocks_and_plls(
         rp_pico::XOSC_CRYSTAL_FREQ,
         pac.XOSC,
         pac.CLOCKS,
         pac.PLL_SYS,
-        pac.PLL_USB,
+        pac.PLL_USB, // ADC requires a 48MHz clock (clk_adc), which could come from the USB PLL.
         &mut pac.RESETS,
         &mut watchdog,
     )
     .ok()
     .unwrap();
 
-    // The single-cycle I/O block controls our GPIO 
+
+    // 2. I/O Config
+
+    // The single-cycle I/O block controls our GPIO pins
     let sio = hal::Sio::new(pac.SIO);
 
     // Set the pins up according to their function on this particular board
@@ -82,6 +62,20 @@ fn main() -> ! {
         sio.gpio_bank0,
         &mut pac.RESETS,
     );
+
+    /////////////////////
+
+
+    // 3. Enable specific Pin functions
+
+    // Enable ADC
+    let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
+
+    // Using an ADC input shared with GPIO pin 
+    let mut adc_pin_0 = pins.gpio27.into_floating_input();
+
+
+    // 4. Configure USB
 
     // Set up the USB driver
     let usb_bus = UsbBusAllocator::new(hal::usb::UsbBus::new(
@@ -104,26 +98,20 @@ fn main() -> ! {
         .build();
 
 
-    // Enable ADC
-    let mut adc = hal::Adc::new(pac.ADC, &mut pac.RESETS);
-
-    // Configure one of the pins as an ADC input
-    let mut adc_pin_0 = pins.gpio27.into_floating_input();
-
-
     loop {
-
         // check for new data
         if !usb_dev.poll(&mut [&mut serial]) {
             continue;
         }
 
         // Read the raw ADC counts from the temperature sensor channel.
-        let receive: u16 = adc.read(&mut adc_pin_0).unwrap();
+        //
+        // Request that the ADC begin a conversion on the specified pin
+        let temp_sens_adc_counts_2: u16 = adc.read(&mut adc_pin_0).unwrap();
 
         // string buffer de 32 bytes
         let mut text: String<32> = String::new();
-        writeln!(&mut text, "Resistor at: {receive} intensity");
+        let _ = writeln!(&mut text, "ADC Voltage Input: {temp_sens_adc_counts_2} of 4096");
 
         // This only works reliably because the number of bytes written to
         // the serial port is smaller than the buffers available to the USB
@@ -132,3 +120,5 @@ fn main() -> ! {
         let _ = serial.write(text.as_bytes());
     }
 }
+
+// End of file
