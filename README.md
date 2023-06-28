@@ -41,6 +41,22 @@ cargo run --release --example gpio_out_pwm
 cargo run --release --example pio_out_pwm
 ```
 
+#### A.4) GPIO output - Buzzer PWM
+
+
+* a) Connect Buzzer Circuit
+
+![Alt Text](./docs/assets/buzzer.png)
+
+* a) Plug the Pi Pico device to USB ```while holding boostel```
+* b) compile & run program
+```sh
+cargo run --release --example buzzer
+```
+
+buzzer
+
+
 
 ### B) Input
 
