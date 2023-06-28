@@ -32,31 +32,8 @@ use rp_pico::hal::pac;
 // higher-level drivers.
 use rp_pico::hal;
 
-// The minimum PWM value (i.e. LED brightness) we want
-const LOW: u16 = 0;
+const PWM_DIV: u8 = 40;
 
-// The maximum PWM value (i.e. LED brightness) we want
-const HIGH: u16 = 25000;
-
-// Melody notes and corresponding durations
-const MELODY_NOTES: [(u32, u32); 8] = [
-    (523, 200),  // C
-    (587, 200),  // D
-    (659, 200),  // E
-    (698, 200),  // F
-    (784, 400),  // G
-    (880, 400),  // A
-    (987, 400),  // B
-    (1046, 400), // C
-];
-
-/// Entry point to our bare-metal application.
-///
-/// The `#[entry]` macro ensures the Cortex-M start-up code calls this function
-/// as soon as all global variables are initialised.
-///
-/// The function configures the RP2040 peripherals, then fades the LED and plays
-/// a melody on the buzzer in an infinite loop.
 #[entry]
 fn main() -> ! {
     // Grab our singleton objects
@@ -96,43 +73,71 @@ fn main() -> ! {
     // milliseconds)
     let mut delay = cortex_m::delay::Delay::new(core.SYST, clocks.system_clock.freq().to_Hz());
 
-    // Init PWMs
-    let mut pwm_slices = hal::pwm::Slices::new(pac.PWM, &mut pac.RESETS);
+    // Buzzer
+    let pwm_slices = hal::pwm::Slices::new(pac.PWM, &mut pac.RESETS);
 
-    // Configure PWM5
-    let pwm = &mut pwm_slices.pwm7;
-    pwm.set_ph_correct();
-    pwm.enable();
+    // Configure PWM7
+    let mut buzzer = pwm_slices.pwm7;
+    buzzer.set_ph_correct();
 
-    // Our LED output
-    let led_pin = pins.gpio15.into_push_pull_output();
+    /// (CLK / DIV / FREQ * 2) == (12000000 / 40 / 261.63)
+    fn calc_note(freq: f32) -> u16 {
+        (rp_pico::XOSC_CRYSTAL_FREQ as f32 / PWM_DIV as f32 / freq) as u16
+    }
 
-    // Output channel B on PWM7 to the LED pin
-    let channel = &mut pwm.channel_b;
-    channel.output_to(led_pin);
+    // Notes
+    let c4 = calc_note(261.63);
+    // let c4_sharp = calc_note(277.18);
+    let d4 = calc_note(293.66);
+    // let d4_sharp = calc_note(311.1);
+    let e4 = calc_note(329.63);
+    let f4 = calc_note(349.23);
+    // let f4_sharp = calc_note(369.99);
+    let g4 = calc_note(392.00);
+    // let g4_sharp = calc_note(415.30);
+    let a4 = calc_note(440.00);
+    // let a4_sharp = calc_note(466.16);
+    let b4 = calc_note(493.88);
+    let space = 0;
+
+    let doremi = [c4, d4, e4, f4, g4, a4, b4];
+
+    let twinkle_twinkle = [
+        c4, c4, g4, g4, a4, a4, g4, space, f4, f4, e4, e4, d4, d4, c4, space, g4, g4, f4, f4, e4,
+        e4, d4, space, g4, g4, f4, f4, e4, e4, d4, space, c4, c4, g4, g4, a4, a4, g4, space, f4,
+        f4, e4, e4, d4, d4, c4, space,
+    ];
+
+    buzzer.enable();
+    buzzer.channel_b.output_to(pins.gpio15);
+    buzzer.set_div_int(PWM_DIV);
+
 
     // Buzzer pin (e.g., GP26)
-    let mut buzzer_pin = pins.gpio16.into_push_pull_output();
+    //let mut buzzer_pin = pins.gpio16.into_push_pull_output();
+
 
     // Infinite loop, fading LED up and down and playing a melody
     loop {
-        // Fade LED up and down
-        for i in (LOW..=HIGH).skip(100) {
-            delay.delay_us(8);
-            channel.set_duty(i);
-        }
-
-        for i in (LOW..=HIGH).rev().skip(100) {
-            delay.delay_us(8);
-            channel.set_duty(i);
-        }
 
         // Play melody
-        for (frequency, duration) in &MELODY_NOTES {
-            buzzer_pin.set_high().unwrap();
-            delay.delay_us(*duration);
-            buzzer_pin.set_low().unwrap();
-            delay.delay_ms(100);
+        for top in doremi {
+            buzzer.channel_b.set_duty(500); // Square Wave
+            buzzer.set_top(top);
+            delay.delay_ms(500);
         }
+        buzzer.channel_b.set_duty(0);
+
+
+        // Play melody 2
+        for top in twinkle_twinkle {
+            buzzer.channel_b.set_duty(500); // Square Wave
+            buzzer.set_top(top);
+            delay.delay_ms(500);
+        }
+        buzzer.channel_b.set_duty(0);
+
+        delay.delay_ms(500);
     }
 }
+
