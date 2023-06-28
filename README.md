@@ -48,13 +48,11 @@ cargo run --release --example pio_out_pwm
 
 ![Alt Text](./docs/assets/buzzer.png)
 
-* a) Plug the Pi Pico device to USB ```while holding boostel```
-* b) compile & run program
+* b) Plug the Pi Pico device to USB ```while holding boostel```
+* c) compile & run program
 ```sh
 cargo run --release --example buzzer
 ```
-
-buzzer
 
 
 
