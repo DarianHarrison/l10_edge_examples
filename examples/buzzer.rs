@@ -122,7 +122,7 @@ fn main() -> ! {
 
         // Play melody
         for top in doremi {
-            buzzer.channel_b.set_duty(500); // Square Wave
+            buzzer.channel_b.set_duty(top / 2); // 50% Duty Cycle
             buzzer.set_top(top);
             delay.delay_ms(500);
         }
@@ -131,7 +131,7 @@ fn main() -> ! {
 
         // Play melody 2
         for top in twinkle_twinkle {
-            buzzer.channel_b.set_duty(500); // Square Wave
+            buzzer.channel_b.set_duty(top / 2); // 50% Duty Cycle
             buzzer.set_top(top);
             delay.delay_ms(500);
         }
