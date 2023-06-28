@@ -32,8 +32,55 @@ use rp_pico::hal::pac;
 // higher-level drivers.
 use rp_pico::hal;
 
+<<<<<<< HEAD
 const PWM_DIV: u8 = 40;
 
+=======
+
+// The minimum PWM value (i.e. LED brightness) we want
+const LOW: u16 = 0;
+
+// The maximum PWM value (i.e. LED brightness) we want
+const HIGH: u16 = 25000;
+
+// Melody notes and corresponding durations
+const MELODY_NOTES: [(u32, u32); 26] = [
+    (659, 400),   // E
+    (587, 200),   // D
+    (659, 200),   // E
+    (587, 200),   // D
+    (659, 200),   // E
+    (494, 400),   // B
+    (587, 200),   // D
+    (659, 200),   // E
+    (587, 200),   // D
+    (659, 200),   // E
+    (494, 400),   // B
+    (587, 200),   // D
+    (659, 200),   // E
+    (587, 200),   // D
+    (659, 200),   // E
+    (659, 200),   // E
+    (587, 200),   // D
+    (659, 200),   // E
+    (587, 200),   // D
+    (659, 200),   // E
+    (494, 400),   // B
+    (659, 200),   // E
+    (587, 200),   // D
+    (659, 200),   // E
+    (0, 400),     // Pause
+    (659, 200),   // E
+];
+
+/// Entry point to our bare-metal application.
+///
+/// The `#[entry]` macro ensures the Cortex-M start-up code calls this function
+/// as soon as all global variables are initialised.
+///
+/// The function configures the RP2040 peripherals, then fades the LED and plays
+/// a melody on the buzzer in an infinite loop.
+>>>>>>> ddb3127 (bajar cambios de Darian)
 #[entry]
 fn main() -> ! {
     // Grab our singleton objects
@@ -116,10 +163,18 @@ fn main() -> ! {
     loop {
 
         // Play melody
+<<<<<<< HEAD
         for top in doremi {
             buzzer.channel_b.set_duty(top / 2); // 50% Duty Cycle
             buzzer.set_top(top);
             delay.delay_ms(500);
+=======
+        for (_frequency, duration) in &MELODY_NOTES {
+            buzzer_pin.set_high().unwrap();
+            delay.delay_us(*duration);
+            buzzer_pin.set_low().unwrap();
+            delay.delay_ms(100);
+>>>>>>> ddb3127 (bajar cambios de Darian)
         }
         buzzer.channel_b.set_duty(0);
 
