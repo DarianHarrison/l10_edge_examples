@@ -113,11 +113,6 @@ fn main() -> ! {
     buzzer.set_div_int(PWM_DIV);
 
 
-    // Buzzer pin (e.g., GP26)
-    //let mut buzzer_pin = pins.gpio16.into_push_pull_output();
-
-
-    // Infinite loop, fading LED up and down and playing a melody
     loop {
 
         // Play melody
