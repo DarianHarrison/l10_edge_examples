@@ -103,7 +103,7 @@ fn main() -> ! {
     // 4. Write, Load, and Install PIO Program
 
     // write and load a pio program
-    let pio_program = pio_file!("./examples/pio_programs.pio", select_program("pio_out"));
+    let pio_program = pio_file!("./examples/pio_program.pio", select_program("pio_out"));
     
     // Allocates space in instruction memory and installs the program. 
     // The installed program that can be used to configure a StateMachine via PIOBuilder.

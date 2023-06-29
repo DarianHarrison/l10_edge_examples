@@ -1,6 +1,46 @@
-.program buzzer_clck
-    pull(block)
-    wrap_target:
-        jmp(x--)
-        wrap()
-.end
+; note: each pio program has up to 32 <tab> fields, notice in this program we maxed them out
+
+.program pio_out
+
+.define public T1 31 ; ON delay (note: allows up to 31 or 15 if side_set is set up)
+.define public T2 31 ; OFF delay (note: allows up to 31 or 15 if side_set is set up)
+
+entry_point:
+    jmp t1 ; jump to t1
+
+t1: ; ON
+    set y, 1 ; init state (1 for ON, 0 for OFF)
+    set x, T1 ; init delay time for ON
+    set pins, 1 [31] ; set pin to ON
+    jmp delay
+
+t2: ; OFF
+    jmp !y entry_point ; if y=0 and x = 0 our sequential T1, T2 cycle has completed (in this case blink ON and OFF)
+    set x, T2
+    set y, 0
+    set pins, 0 [31] ;
+    jmp delay
+
+delay: ; note: this is the max delay allowable in this program, further delay will give error when compiling
+    nop [31] ; do nothing, delay 31 cycles
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    nop [31]
+    jmp !x t2 ; once delay completes, jump to t2
+    jmp x-- delay ; delay for 31 cycles
