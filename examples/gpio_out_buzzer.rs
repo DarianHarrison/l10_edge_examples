@@ -32,55 +32,8 @@ use rp_pico::hal::pac;
 // higher-level drivers.
 use rp_pico::hal;
 
-<<<<<<< HEAD
 const PWM_DIV: u8 = 40;
 
-=======
-
-// The minimum PWM value (i.e. LED brightness) we want
-const LOW: u16 = 0;
-
-// The maximum PWM value (i.e. LED brightness) we want
-const HIGH: u16 = 25000;
-
-// Melody notes and corresponding durations
-const MELODY_NOTES: [(u32, u32); 26] = [
-    (659, 400),   // E
-    (587, 200),   // D
-    (659, 200),   // E
-    (587, 200),   // D
-    (659, 200),   // E
-    (494, 400),   // B
-    (587, 200),   // D
-    (659, 200),   // E
-    (587, 200),   // D
-    (659, 200),   // E
-    (494, 400),   // B
-    (587, 200),   // D
-    (659, 200),   // E
-    (587, 200),   // D
-    (659, 200),   // E
-    (659, 200),   // E
-    (587, 200),   // D
-    (659, 200),   // E
-    (587, 200),   // D
-    (659, 200),   // E
-    (494, 400),   // B
-    (659, 200),   // E
-    (587, 200),   // D
-    (659, 200),   // E
-    (0, 400),     // Pause
-    (659, 200),   // E
-];
-
-/// Entry point to our bare-metal application.
-///
-/// The `#[entry]` macro ensures the Cortex-M start-up code calls this function
-/// as soon as all global variables are initialised.
-///
-/// The function configures the RP2040 peripherals, then fades the LED and plays
-/// a melody on the buzzer in an infinite loop.
->>>>>>> ddb3127 (bajar cambios de Darian)
 #[entry]
 fn main() -> ! {
     // Grab our singleton objects
@@ -127,61 +80,49 @@ fn main() -> ! {
     let mut buzzer = pwm_slices.pwm7;
     buzzer.set_ph_correct();
 
-    /// (CLK / DIV / FREQ * 2) == (12000000 / 40 / 261.63)
+    // (CLK / DIV / FREQ * 2) == (12000000 / 40 / 261.63)
     fn calc_note(freq: f32) -> u16 {
         (rp_pico::XOSC_CRYSTAL_FREQ as f32 / PWM_DIV as f32 / freq) as u16
     }
 
-    // Notes
+    // Definición de las notas
     let c4 = calc_note(261.63);
-    // let c4_sharp = calc_note(277.18);
     let d4 = calc_note(293.66);
-    // let d4_sharp = calc_note(311.1);
     let e4 = calc_note(329.63);
     let f4 = calc_note(349.23);
-    // let f4_sharp = calc_note(369.99);
     let g4 = calc_note(392.00);
-    // let g4_sharp = calc_note(415.30);
     let a4 = calc_note(440.00);
-    // let a4_sharp = calc_note(466.16);
     let b4 = calc_note(493.88);
     let space = 0;
 
     let doremi = [c4, d4, e4, f4, g4, a4, b4];
 
-    let twinkle_twinkle = [
-        c4, c4, g4, g4, a4, a4, g4, space, f4, f4, e4, e4, d4, d4, c4, space, g4, g4, f4, f4, e4,
-        e4, d4, space, g4, g4, f4, f4, e4, e4, d4, space, c4, c4, g4, g4, a4, a4, g4, space, f4,
-        f4, e4, e4, d4, d4, c4, space,
-    ];
+ // Melodía de "Happy Birthday"
+let happy_birthday = [
+    e4, e4, f4, e4, g4, f4,
+    e4, e4, f4, e4, a4, g4,
+    e4, e4, e4, c4, b4, a4,
+    f4, f4, e4, e4, g4, f4,
+    e4, e4, f4, e4, g4, f4,
+    e4, e4, f4, e4, a4, g4,
+];
 
     buzzer.enable();
     buzzer.channel_b.output_to(pins.gpio15);
     buzzer.set_div_int(PWM_DIV);
 
-
     loop {
-
         // Play melody
-<<<<<<< HEAD
-        for top in doremi {
+        for &top in &doremi {
             buzzer.channel_b.set_duty(top / 2); // 50% Duty Cycle
             buzzer.set_top(top);
             delay.delay_ms(500);
-=======
-        for (_frequency, duration) in &MELODY_NOTES {
-            buzzer_pin.set_high().unwrap();
-            delay.delay_us(*duration);
-            buzzer_pin.set_low().unwrap();
-            delay.delay_ms(100);
->>>>>>> ddb3127 (bajar cambios de Darian)
         }
         buzzer.channel_b.set_duty(0);
 
-
         // Play melody 2
-        for top in twinkle_twinkle {
-            buzzer.channel_b.set_duty(top / 2); // 50% Duty Cycle
+        for &top in &happy_birthday {
+            buzzer.channel_b.set_duty(top / 2); // 50% de ciclo de trabajo
             buzzer.set_top(top);
             delay.delay_ms(500);
         }
@@ -190,4 +131,3 @@ fn main() -> ! {
         delay.delay_ms(500);
     }
 }
-
