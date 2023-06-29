@@ -2,8 +2,8 @@
 
 .program pio_out
 
-.define public T1 31 ; ON delay (note: allows up to 31 or 15 if side_set is set up)
-.define public T2 31 ; OFF delay (note: allows up to 31 or 15 if side_set is set up)
+.define public T1 31 ; ON delay (note: allows up to 31)
+.define public T2 31 ; OFF delay (note: allows up to 31)
 
 entry_point:
     jmp t1 ; jump to t1
