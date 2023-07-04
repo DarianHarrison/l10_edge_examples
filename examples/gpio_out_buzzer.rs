@@ -85,26 +85,65 @@ fn main() -> ! {
         (rp_pico::XOSC_CRYSTAL_FREQ as f32 / PWM_DIV as f32 / freq) as u16
     }
 
-    // Definición de las notas
-    let c4 = calc_note(261.63);
-    let d4 = calc_note(293.66);
-    let e4 = calc_note(329.63);
-    let f4 = calc_note(349.23);
-    let g4 = calc_note(392.00);
-    let a4 = calc_note(440.00);
-    let b4 = calc_note(493.88);
+  // Notes
+    //let c4 = calc_note(261.63);
+    // let c4_sharp = calc_note(277.18);
+    let d4 = calc_note(293.66);// re
+    // let d4_sharp = calc_note(311.1);
+    let e4 = calc_note(329.63);// mi
+    //let f4 = calc_note(349.23);
+    let f4_sharp = calc_note(369.99);// fa#
+    //let g4 = calc_note(392.00);
+    let g4_sharp = calc_note(415.30);//sol
+    //let a4 = calc_note(440.00);
+    let a4_sharp = calc_note(466.16);//la
+    let b4 = calc_note(493.88);//si
+   
     let space = 0;
 
     let doremi = [c4, d4, e4, f4, g4, a4, b4];
-
- // Melodía de "Happy Birthday"
-let happy_birthday = [
-    e4, e4, f4, e4, g4, f4,
-    e4, e4, f4, e4, a4, g4,
-    e4, e4, e4, c4, b4, a4,
-    f4, f4, e4, e4, g4, f4,
-    e4, e4, f4, e4, g4, f4,
-    e4, e4, f4, e4, a4, g4,
+   let twinkle_twinkle = [
+    d4, // re
+    e4, // mi
+    f4_sharp, // fa#
+    d4, // re
+    space,
+    d4, // re
+    e4, // mi
+    f4_sharp, // fa#
+    d4, // re
+    space,
+    f4_sharp, // fa#
+    g4_sharp, // sol
+    a4_sharp, // la
+    space,
+    f4_sharp, // fa#
+    g4_sharp, // sol
+    a4_sharp, // la
+    space,
+    a4_sharp, // la
+    b4, // si
+    a4_sharp, // la
+    g4_sharp, // sol
+    f4_sharp, // fa#
+    d4, // re
+    space,
+    a4_sharp, // la
+    b4, // si
+    a4_sharp, // la
+    g4_sharp, // sol
+    f4_sharp, // fa#
+    d4, // re
+    space,
+    e4, // mi
+    a4_sharp, // la
+    d4, // re
+    space,
+    e4, // mi
+    a4_sharp, // la
+    d4, // re
+    space,
+    
 ];
 
     buzzer.enable();
@@ -121,7 +160,7 @@ let happy_birthday = [
         buzzer.channel_b.set_duty(0);
 
         // Play melody 2
-        for &top in &happy_birthday {
+        for &top in &twinkle_twinkle {
             buzzer.channel_b.set_duty(top / 2); // 50% de ciclo de trabajo
             buzzer.set_top(top);
             delay.delay_ms(500);
