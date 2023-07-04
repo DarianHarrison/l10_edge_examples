@@ -6,7 +6,6 @@ use panic_halt as _;
 use rp_pico::hal::pac;
 use rp_pico::hal;
 use embedded_hal::adc::OneShot;
-// use embedded_hal::Pwm;
 use rp_pico::hal::prelude::*;
 use embedded_hal::PwmPin;
 
@@ -50,30 +49,11 @@ fn main() -> ! {
     pwm.enable();
 
     let led_pin = pins.gpio15.into_push_pull_output();
-    // let mut potentiometer_pin = pins.gpio28.into_analog();
-
     let channel_out = &mut pwm.channel_b;
     channel_out.output_to(led_pin);
-    // let channel_in = &mut pwm.channel_b;
-    // let mut potentiometer_pin = channel_in.input_from(pins.gpio27);
-
-    // led_pin.set_pwm_frequency(1000.0);
 
     loop {
-        // let value = potentiometer_pin.read().unwrap();
-        // led_pin.set_duty(value);
-        // delay.delay_ms(100);
         let value: u16 = adc.read(&mut adc_pin_0).unwrap();
         channel_out.set_duty(value);
-        
-        // for i in (LOW..=HIGH).skip(100) {
-        //     delay.delay_us(8);
-        //     channel.set_duty(i);
-        // }
-
-        // for i in (LOW..=HIGH).rev().skip(100) {
-        //     delay.delay_us(8);
-        //     channel.set_duty(i);
-        // }
     }
 }
