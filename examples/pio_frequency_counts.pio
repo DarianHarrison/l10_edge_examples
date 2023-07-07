@@ -1,0 +1,39 @@
+.program pwm_generator
+.side_set 1 opt
+
+    pull noblock    side 0 ; Pull from FIFO to OSR if available, else copy X to OSR.
+    mov x, osr             ; Copy most-recently-pulled value back to scratch X
+    mov y, isr             ; ISR contains PWM period. Y used as counter.
+countloop:
+    jmp x!=y noset         ; Set pin high if X == Y, keep the two paths length matched
+    jmp skip        side 1
+noset:
+    nop                    ; Single dummy cycle to keep the two paths the same length
+skip:
+    jmp y-- countloop      ; Loop until Y hits 0, then pull a fresh PWM value from FIFO
+
+
+
+.program pio_frequency_counts
+
+.wrap_target
+init:
+	mov y ~null ; counts = 0
+	; set x 31 ; capture time_frame = 31 ; old version
+        ; set time_counter to 10011 << 17
+    set x 19
+    mov isr x
+    in null 17
+    mov x isr
+countdown:
+	jmp x-- test ; timer count down
+	jmp export_value ; time_frame completed
+test:
+	jmp pin count ; increment if pin is set
+	jmp countdown ; if pin not set, go back to countdown
+count:
+	jmp y-- countdown ; increment pin and go back to countdown
+export_value:
+	mov isr ~y ; move countes to ISR
+	push noblock ; push to RX then restart counter
+.wrap
