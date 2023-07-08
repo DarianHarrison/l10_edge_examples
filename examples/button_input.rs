@@ -57,10 +57,11 @@ fn main() -> ! {
     );
 
     // Our LED output
-    let mut led_pin = pins.led.into_push_pull_output();
+    let mut led_pin = pins.gpio0.into_push_pull_output();
 
     // Our button input
-    let button_pin = pins.gpio16.into_pull_up_input();
+    let button_pin = pins.gpio1.into_pull_up_input();
+
 
     // Run forever, setting the LED according to the button
     loop {

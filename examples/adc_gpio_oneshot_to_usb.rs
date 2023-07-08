@@ -107,6 +107,7 @@ fn main() -> ! {
         // Read the raw ADC counts from the temperature sensor channel.
         //
         // Request that the ADC begin a conversion on the specified pin
+        // Reads a single packet of data from the specified endpoint and returns the actual length of the packet
         let temp_sens_adc_counts_2: u16 = adc.read(&mut adc_pin_0).unwrap();
 
         // string buffer de 32 bytes

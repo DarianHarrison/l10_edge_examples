@@ -1,0 +1,14 @@
+.program pio_button_input
+.side_set 1 opt
+
+.wrap_target
+    wait 0 pin 0 ; ensure LED pin is OFF before initializing
+init:
+    in pins, 1 ; shift the input pins into the ISR (check for button press)
+    jmp pin on side 1 ; set LED Pin high if the X == 0 (button pressed) and check if button pressed again.
+    jmp off side 0 ; set LED Pin OFF as button is un-pressed. Break out of loop to wait for button press condition 
+on:
+    jmp init ; no LED switch needed, 
+off:
+    nop ; break out of loop when LED is OFF
+.wrap

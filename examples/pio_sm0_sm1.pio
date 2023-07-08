@@ -1,0 +1,37 @@
+.program pio_sm0
+.side_set 1 opt
+
+.wrap_target
+    set y, 31 side 0 ; period
+    set x, 15 ; duty cycle 50%
+
+countloop:
+    jmp x!=y noset ; Set pin high if x == y, keep the two paths length matched
+    jmp skip side 1
+
+noset:
+    nop ; Single dummy cycle to keep the two paths the same length
+
+skip:
+    jmp y-- countloop ; Loop until Y hits 0, then wrap
+.wrap
+
+;
+
+.program pio_sm1
+.side_set 1 opt
+
+.wrap_target
+    set y, 31 side 1 ; period
+    set x, 15 ; duty cycle 50%
+
+countloop:
+    jmp x!=y noset ; Set pin high if x == y, keep the two paths length matched
+    jmp skip side 0
+
+noset:
+    nop ; Single dummy cycle to keep the two paths the same length
+
+skip:
+    jmp y-- countloop ; Loop until Y hits 0, then wrap
+.wrap
