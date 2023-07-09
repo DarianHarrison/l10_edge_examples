@@ -1,7 +1,8 @@
 [package]
-name = "pico_l10_detector"
-version = "0.1.0"
+name = "l10_edge_examples"
+version = "0.0.6"
 edition = "2021"
+authors = ["Agustin Palafox", "Alex Aldana", "Alvaro Lopez", "Darian Harrison", "Mario Hernandez"]
 
 [dependencies]
 cortex-m = "0.7"
