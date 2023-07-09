@@ -42,6 +42,20 @@ cargo run --release --example gpio_out_pwm
 cargo run --release --example gpio_out_buzzer
 ```
 
+#### tctr500_line
+
+* This example leverages a tctr500 sensor that will activate whenever it comes into close contact with an object, i.e your finger.
+* The sensor can be used, for isntance to prevent a collision of a tiny remote controlled car
+* In this example we send the signal over to a hosted system via USB, however a LED can also be connected for some visual confirmation.
+
+
+![Alt Text](./docs/assets/line_sensor.png)
+
+```sh
+cargo run --release --example tctr500_line
+```
+
+
 #### adc_tempsense_oneshot_to_usb
 
 * This eaxmple is based on the ADC Temperature Sensor example from the rp_pico crate
@@ -216,3 +230,8 @@ on l10_core
 ```sh
 cargo run 0x16c0 0x27dd
 ```
+
+
+#### Additional PIO programs
+
+other intersting PIO programs can be found here: https://github.com/GitJer/Some_RPI-Pico_stuff/tree/main

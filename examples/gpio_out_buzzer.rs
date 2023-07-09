@@ -14,7 +14,6 @@
 use rp_pico::entry;
 
 // GPIO traits
-use embedded_hal::digital::v2::OutputPin;
 use embedded_hal::PwmPin;
 
 // Ensure we halt the program on panic (if we don't mention this crate it won't
@@ -86,65 +85,42 @@ fn main() -> ! {
     }
 
   // Notes
-    //let c4 = calc_note(261.63);
-    // let c4_sharp = calc_note(277.18);
-    let d4 = calc_note(293.66);// re
-    // let d4_sharp = calc_note(311.1);
-    let e4 = calc_note(329.63);// mi
-    //let f4 = calc_note(349.23);
-    let f4_sharp = calc_note(369.99);// fa#
-    //let g4 = calc_note(392.00);
-    let g4_sharp = calc_note(415.30);//sol
-    //let a4 = calc_note(440.00);
-    let a4_sharp = calc_note(466.16);//la
-    let b4 = calc_note(493.88);//si
+    let c4 = calc_note(261.63); // do
+    let _c4_sharp = calc_note(277.18); // do sostenido
+    let d4 = calc_note(293.66); // re
+    let _d4_sharp = calc_note(311.1); // re sostenido
+    let e4 = calc_note(329.63); // mi
+    let f4 = calc_note(349.23); // fa
+    let _f4_sharp = calc_note(369.99);// fa sostenido
+    let g4 = calc_note(392.00); // sol
+    let _g4_sharp = calc_note(415.30);// sol sostenido
+    let a4 = calc_note(440.00); // la
+    let _a4_sharp = calc_note(466.16);// la sostenido
+    let b4 = calc_note(493.88); // si
    
-    let space = 0;
+    let _space = 0;
 
     let doremi = [c4, d4, e4, f4, g4, a4, b4];
-   let twinkle_twinkle = [
-    d4, // re
-    e4, // mi
-    f4_sharp, // fa#
-    d4, // re
-    space,
-    d4, // re
-    e4, // mi
-    f4_sharp, // fa#
-    d4, // re
-    space,
-    f4_sharp, // fa#
-    g4_sharp, // sol
-    a4_sharp, // la
-    space,
-    f4_sharp, // fa#
-    g4_sharp, // sol
-    a4_sharp, // la
-    space,
-    a4_sharp, // la
-    b4, // si
-    a4_sharp, // la
-    g4_sharp, // sol
-    f4_sharp, // fa#
-    d4, // re
-    space,
-    a4_sharp, // la
-    b4, // si
-    a4_sharp, // la
-    g4_sharp, // sol
-    f4_sharp, // fa#
-    d4, // re
-    space,
-    e4, // mi
-    a4_sharp, // la
-    d4, // re
-    space,
-    e4, // mi
-    a4_sharp, // la
-    d4, // re
-    space,
-    
-];
+    let twinkle_twinkle = [
+        b4,
+        g4,
+        e4,
+        b4,
+        g4,
+        e4,
+        a4,
+        f4,
+        d4,
+        a4,
+        f4,
+        d4,
+        g4,
+        e4,
+        c4,
+        g4,
+        e4,
+        c4,
+    ];
 
     buzzer.enable();
     buzzer.channel_b.output_to(pins.gpio15);
@@ -158,6 +134,7 @@ fn main() -> ! {
             delay.delay_ms(500);
         }
         buzzer.channel_b.set_duty(0);
+        delay.delay_ms(1000);
 
         // Play melody 2
         for &top in &twinkle_twinkle {
