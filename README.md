@@ -7,7 +7,7 @@ This repository contains a variety of examples for the RP2040 microcontroller an
 
 ## 0. Prerequisites
 
-[https://github.com/DarianHarrison/l10_edge/docs/prerequisites.md](https://github.com/DarianHarrison/l10_edge/blob/main/docs/prerequisites.md)
+[https://github.com/DarianHarrison/l10_edge/docs/prerequisites.md](https://github.com/DarianHarrison/l10_edge_examples/blob/main/docs/prerequisites.md)
 
 
 ## 1. Examples
