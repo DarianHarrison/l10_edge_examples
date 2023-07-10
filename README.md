@@ -109,7 +109,7 @@ cargo run --release --example button_input
 
 #### transistor_switch
 
-* This example uses one of the most beautiful components ever discovered: **"The Transistor"** 
+* This example uses one of the most beautiful components ever invented: **"The Transistor"** 
 * This configuration leverages a pullup Input connected to the collector terminal 
 * We then run a slow PWM on the Base Pin which acts an electronic button
 * The LED connected to the Emitter Pin is meant to provide visual confirmation of how the Base gate is modulating the Input.
@@ -201,7 +201,7 @@ cargo run --release --example pio_pwm_self_contained
 
 #### pio_pwm_transistor
 
-* This example uses one of the most beautiful components ever discovered: **"The Transistor"**
+* This example uses one of the most beautiful components ever invented: **"The Transistor"**
 * This configuration leverages a pullup Input connected to the collector terminal 
 * We then run a PWM on the Base Pin which acts an electronic button. This PWM component is a minor tweak of the original pwm.pio example in rp_pico crate examples.
 * The LED connected to the Emitter Pin is meant to provide visual confirmation of how the Base gate is modulating the Input.
@@ -216,7 +216,7 @@ cargo run --release --example pio_pwm_transistor
 
 #### pio_frequency_counts
 
-* This example uses one of the most beautiful components ever discovered: **"The Transistor"**
+* This example uses one of the most beautiful components ever invented: **"The Transistor"**
 * This example extends the previous example ```pio_pwm_transistor``` 
 * In this example we count how many Pulses were captured in a time window
 * We then showcase how to send this data over to a host system via USB.
@@ -237,3 +237,27 @@ cargo run 0x16c0 0x27dd
 #### Additional PIO programs
 
 other intersting PIO programs can be found here: https://github.com/GitJer/Some_RPI-Pico_stuff/tree/main
+
+
+## References
+
+### board-crates
+* https://crates.io/crates/embedded-hal
+* https://crates.io/crates/rp2040-hal
+* https://crates.io/crates/rp-pico
+
+### arm-crates
+* https://crates.io/crates/cortex-m
+
+### USB
+* https://github.com/rust-embedded-community/usbd-serial
+* https://github.com/a1ien/rusb
+* https://github.com/rust-embedded-community/usb-device
+
+### Pico
+Raspberry Pi Pico DataSheet
+https://datasheets.raspberrypi.com/pico/pico-datasheet.pdf
+
+rp2040 microcontroller DataSheet
+https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf
+
