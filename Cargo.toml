@@ -1,6 +1,6 @@
 [package]
 name = "l10_edge_examples"
-version = "0.0.6"
+version = "0.0.8"
 edition = "2021"
 authors = ["Agustin Palafox", "Alex Aldana", "Alvaro Lopez", "Darian Harrison", "Mario Hernandez"]
 
