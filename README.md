@@ -1,4 +1,4 @@
-# l10_edge_examples
+# pico_examples
 
 This repository contains a variety of examples for the RP2040 microcontroller and Pi Pico board that we used while learning the Pico board.
 
